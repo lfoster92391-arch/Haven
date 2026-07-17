@@ -1,0 +1,244 @@
+.mealActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.primaryBtn {
+  background: var(--haven-forest);
+  color: white;
+  border: none;
+  min-height: var(--btn-sm-height, 36px);
+  min-width: 44px;
+  padding: 0.45rem 1rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.primaryBtn:hover {
+  background: var(--haven-deep-forest);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.secondaryBtn {
+  background: white;
+  color: var(--haven-forest);
+  border: 1px solid var(--haven-border);
+  min-height: var(--btn-sm-height, 36px);
+  min-width: 44px;
+  padding: 0.45rem 1rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.secondaryBtn:hover {
+  background: var(--haven-warm-white);
+}
+
+.secondaryBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.statusMsg {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.missingPanel {
+  padding: 0.65rem 0.75rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.missingTitle {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--haven-text);
+}
+
+.missingList {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.8125rem;
+  color: var(--haven-text-muted);
+}
+
+.addListBtn {
+  align-self: flex-start;
+  background: transparent;
+  color: var(--haven-forest);
+  border: 1px solid var(--haven-forest);
+  min-height: 32px;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.addListBtn:hover {
+  background: rgba(74, 103, 65, 0.08);
+}
+
+.ratingPanel {
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ratingTitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--haven-text);
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--haven-border);
+  padding: 0.15rem;
+  min-width: 36px;
+  min-height: 36px;
+}
+
+.starActive {
+  color: #c4a35a;
+}
+
+.skipBtn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--haven-text-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0.25rem 0;
+  min-height: 32px;
+}
+
+.skipBtn:hover {
+  color: var(--haven-text);
+}
+
+.doneMsg {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.learnHint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  line-height: 1.35;
+}
+
+.kitchenMsg {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  background: var(--haven-warm-white);
+  color: var(--haven-text);
+  border: 1px solid var(--haven-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.chip:hover {
+  border-color: var(--haven-forest);
+}
+
+.chipActive {
+  background: rgba(74, 103, 65, 0.12);
+  border-color: var(--haven-forest);
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.noteInput,
+.nameInput {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  padding: 0.5rem 0.65rem;
+  font-size: 0.8125rem;
+  font-family: inherit;
+  color: var(--haven-text);
+  background: white;
+  resize: vertical;
+}
+
+.noteInput:focus,
+.nameInput:focus {
+  outline: 2px solid rgba(74, 103, 65, 0.35);
+  outline-offset: 1px;
+}
+
+.ratingSubtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--haven-text);
+}
+
+.compact .primaryBtn,
+.compact .secondaryBtn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.75rem;
+}

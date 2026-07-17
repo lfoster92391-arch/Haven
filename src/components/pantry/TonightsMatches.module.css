@@ -1,0 +1,140 @@
+.section {
+  margin-bottom: var(--dense-gap, 1rem);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--haven-forest);
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+.sub {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--haven-text-muted);
+  line-height: 1.35;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.carousel {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.25rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  min-width: 0;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+}
+
+.carousel .item {
+  flex: 0 0 min(85%, 280px);
+  scroll-snap-align: start;
+}
+
+.carousel .match {
+  height: 100%;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.match {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.match:hover {
+  border-color: var(--haven-sage);
+  box-shadow: 0 2px 8px rgba(74, 103, 65, 0.08);
+}
+
+.matchHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.matchName {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.matchPct {
+  font-size: 0.8rem;
+  color: var(--haven-earth);
+  font-weight: 500;
+}
+
+.matchDetail {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--haven-text-muted);
+  line-height: 1.4;
+}
+
+.sourceBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(74, 103, 65, 0.08);
+  color: var(--haven-earth);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.subLine {
+  margin: 0.25rem 0 0;
+  font-size: 0.72rem;
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.viewAll {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}

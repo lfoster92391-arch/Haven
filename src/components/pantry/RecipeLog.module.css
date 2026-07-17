@@ -1,0 +1,68 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 0 0.25rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--haven-text);
+}
+
+.sub {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--haven-text-muted);
+  line-height: 1.4;
+}
+
+.list {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.item {
+  padding: 0.7rem 0.85rem;
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+}
+
+.name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--haven-text);
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.from {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.note {
+  margin: 0.35rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--haven-forest);
+  line-height: 1.35;
+}
