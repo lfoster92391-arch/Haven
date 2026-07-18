@@ -100,7 +100,7 @@ const KITCHEN_TABS: { id: KitchenTab; label: string; question?: string }[] = [
 
 /** Beta: dinner + expiring + shopping — demote dense command chrome tabs. */
 const BETA_KITCHEN_TABS: { id: KitchenTab; label: string; question?: string }[] = [
-  { id: 'dashboard', label: 'Tonight', question: "What's for dinner — and what expires?" },
+  { id: 'dashboard', label: 'Tonight', question: 'What should I cook?' },
   { id: 'expiration', label: 'Expiring', question: 'What should I use first?' },
   { id: 'shopping', label: 'Shopping', question: 'What should I buy?' },
   { id: 'inventory', label: 'Kitchen', question: "What's inside?" },
@@ -490,6 +490,17 @@ export function Kitchen({ mode = 'kitchen' }: { mode?: 'kitchen' | 'pantry' }) {
   const weeklyPlan = derived?.weeklyPlan
   const decisions = derived?.decisions ?? []
   const cookTonightMeals = derived?.cookTonightMeals ?? []
+  const tonightPrimary =
+    mission?.tonightBest ??
+    dashboard?.recommendedDinner ??
+    dashboard?.topRecipe ??
+    cookTonightMeals[0] ??
+    null
+  const tonightMoreIdeas = cookTonightMeals.filter(meal => {
+    if (!tonightPrimary) return true
+    if (cookTonightMeals.length === 1) return true
+    return meal.id !== tonightPrimary.id
+  })
 
   const showTabSkeleton = (tabSwitching || (needsDeferredTab && !derivedReady)) && tab !== 'inventory'
 
@@ -702,15 +713,9 @@ export function Kitchen({ mode = 'kitchen' }: { mode?: 'kitchen' | 'pantry' }) {
   return (
     <div className={listStyles.page}>
       <PageHeader
-        icon={isPantryMode ? '🛒' : '🍳'}
+        icon={isPantryMode ? '🌿' : '🍳'}
         title={beta ? 'Kitchen' : isPantryMode ? 'Kitchen Command Center' : 'Kitchen'}
-        subtitle={
-          beta
-            ? 'Tonight\'s dinner, expiring food, then shopping.'
-            : isPantryMode
-              ? 'What do I have?'
-              : 'What should I cook?'
-        }
+        subtitle={beta ? 'What should I cook?' : isPantryMode ? 'What do I have?' : 'What should I cook?'}
       />
 
       {beta && (
@@ -914,17 +919,28 @@ export function Kitchen({ mode = 'kitchen' }: { mode?: 'kitchen' | 'pantry' }) {
             />
           )}
 
-          {!beta && <KitchenAssistantHero dashboard={dashboard} outcomes={outcomeStats} />}
+          <KitchenAssistantHero
+            userName={profile?.name}
+            primary={tonightPrimary}
+            moreCount={cookTonightMeals.length}
+            useSoonCount={expSummary.useSoon}
+            onCook={m => setViewingMatch(m)}
+            onSeeMore={() => switchTab('planner')}
+          />
 
-          {cookTonightMeals.length > 0 && (
+          {tonightMoreIdeas.length > 0 && (
             <SectionToggle
-              title="🍳 Cook Tonight"
-              summary={`${cookTonightMeals.length} ready now`}
+              title={tonightPrimary ? 'More ideas for tonight' : 'Cook Tonight'}
+              summary={
+                tonightPrimary
+                  ? `${tonightMoreIdeas.length} more when you’re ready`
+                  : 'Ready when you are'
+              }
               defaultExpanded
               collapsible={false}
             >
               <div className={styles.mealRecGrid}>
-                {cookTonightMeals.map(meal => (
+                {tonightMoreIdeas.map(meal => (
                   <MealRecommendationCard
                     key={meal.id}
                     match={meal}
@@ -935,7 +951,7 @@ export function Kitchen({ mode = 'kitchen' }: { mode?: 'kitchen' | 'pantry' }) {
                 ))}
               </div>
               <button type="button" className={styles.sectionLink} onClick={() => switchTab('planner')}>
-                See all →
+                See all meals →
               </button>
             </SectionToggle>
           )}

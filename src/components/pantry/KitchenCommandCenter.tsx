@@ -10,6 +10,7 @@ import { confidenceBadge } from '../../lib/shelfLifeEstimates'
 import { FilterDropdown } from '../ui/FilterDropdown'
 import { ActionMenu } from '../ui/ActionMenu'
 import { isBetaSimplifiedUi } from '../../lib/betaFeatures'
+import { KitchenAssistantHero } from '../kitchen/KitchenAssistantHero'
 import { MorningKitchenBrief } from './MorningKitchenBrief'
 import { KitchenHealthHero } from './KitchenHealthHero'
 import { TonightsMatches } from './TonightsMatches'
@@ -156,14 +157,25 @@ export function KitchenCommandCenter({
 
   return (
     <div className={styles.center}>
-      <MorningKitchenBrief
-        userName={userName}
-        dashboard={dashboard}
-        outcomes={outcomes}
-        expiredCount={expiredCount}
-        pantryValue={pantryValue}
-        bestRecipe={bestRecipe}
-      />
+      {beta ? (
+        <KitchenAssistantHero
+          userName={userName}
+          primary={bestRecipe ?? null}
+          moreCount={tonightMatches.length}
+          useSoonCount={outcomes.expiringThisWeek}
+          onCook={onSelectMeal}
+          onSeeMore={onOpenMeals}
+        />
+      ) : (
+        <MorningKitchenBrief
+          userName={userName}
+          dashboard={dashboard}
+          outcomes={outcomes}
+          expiredCount={expiredCount}
+          pantryValue={pantryValue}
+          bestRecipe={bestRecipe}
+        />
+      )}
 
       {!beta && (
         <KitchenHealthHero

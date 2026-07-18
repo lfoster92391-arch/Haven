@@ -7,6 +7,7 @@ import {
   subMonths,
 } from 'date-fns'
 import { db } from '../db/database'
+import { getFoundingMemberImpact } from './beta/foundingMemberImpact'
 import { buildSavingsSummary } from './buyingIntelligence/savingsAggregator'
 import { displayRecipeName } from './mealLearning'
 
@@ -18,6 +19,14 @@ export interface HavenMemory {
   weight: number
 }
 
+function seasonWhisper(reference: Date): string | undefined {
+  const m = reference.getMonth() // 0–11
+  if (m >= 2 && m <= 4) return 'Spring is a good season for gentle routines.'
+  if (m >= 5 && m <= 7) return 'Summer light makes home feel a little easier.'
+  if (m >= 8 && m <= 10) return 'Fall is when the kitchen gets quieter and warmer.'
+  return 'Winter is for soft evenings and familiar recipes.'
+}
+
 /**
  * Personal Haven Memories — not social, not a feed.
  * Quiet proof that Haven understands this household’s life.
@@ -25,10 +34,13 @@ export interface HavenMemory {
 export async function gatherHavenMemories(reference = new Date()): Promise<HavenMemory[]> {
   const memories: HavenMemory[] = []
 
-  const [mealEntries, savings, prompt] = await Promise.all([
+  const [mealEntries, savings, prompt, impact, scanSessions, pantryCount] = await Promise.all([
     db.mealLearning.toArray(),
     buildSavingsSummary(reference),
     db.betaFeedbackPrompt.get('default'),
+    getFoundingMemberImpact(),
+    db.scanSessions.orderBy('startedAt').reverse().limit(40).toArray(),
+    db.pantryItems.count().catch(() => 0),
   ])
 
   const totalCooks = mealEntries.reduce((s, e) => s + (e.cookCount || 0), 0)
@@ -44,7 +56,6 @@ export async function gatherHavenMemories(reference = new Date()): Promise<Haven
     })
   }
 
-  // Busiest recent month of cooking
   const monthBuckets = new Map<string, number>()
   for (const entry of mealEntries) {
     if (!entry.lastCookedAt || !entry.cookCount) continue
@@ -55,7 +66,7 @@ export async function gatherHavenMemories(reference = new Date()): Promise<Haven
       /* skip bad dates */
     }
   }
-  // Also approximate from cookCount spread: look at last 6 calendar months via lastCookedAt presence
+
   let bestMonth: { key: string; count: number } | null = null
   for (let i = 1; i <= 6; i++) {
     const d = subMonths(reference, i)
@@ -85,7 +96,10 @@ export async function gatherHavenMemories(reference = new Date()): Promise<Haven
 
   const favorite = [...mealEntries]
     .filter(e => e.cookCount >= 2)
-    .sort((a, b) => b.cookCount - a.cookCount || (b.isFavorite === a.isFavorite ? 0 : b.isFavorite ? 1 : -1))[0]
+    .sort(
+      (a, b) =>
+        b.cookCount - a.cookCount || (b.isFavorite === a.isFavorite ? 0 : b.isFavorite ? 1 : -1),
+    )[0]
   if (favorite) {
     const name = displayRecipeName(favorite)
     memories.push({
@@ -158,17 +172,96 @@ export async function gatherHavenMemories(reference = new Date()): Promise<Haven
     }
   }
 
+  // Founding Member — your teaching, remembered
+  if (!impact.empty && impact.ideasSubmitted >= 1) {
+    memories.push({
+      id: 'founders-ideas',
+      line:
+        impact.ideasSubmitted === 1
+          ? 'You shared one note that helped teach Haven.'
+          : `You’ve shared ${impact.ideasSubmitted} notes teaching Haven what matters in this home.`,
+      whisper: 'That isn’t feedback — it’s how we grow together.',
+      weight: 58 + Math.min(impact.ideasSubmitted * 3, 24),
+    })
+  }
+
+  if (impact.adoptedFeatures.length > 0) {
+    const first = impact.adoptedFeatures[0]
+    memories.push({
+      id: `shaped-${first.id}`,
+      line: `Because of you, ${first.title} feels a little more like home.`,
+      whisper:
+        impact.adoptedFeatures.length > 1
+          ? `You’ve helped shape ${impact.adoptedFeatures.length} parts of Haven.`
+          : 'I remember what you asked for.',
+      weight: 70,
+    })
+  }
+
+  // Haven’s eyes — scans & shelf looks
+  const looks = scanSessions.length
+  if (looks >= 2) {
+    memories.push({
+      id: 'eyes-sessions',
+      line: `You’ve shown Haven your world ${looks} times — shelves, carts, and quiet looks around the home.`,
+      whisper: 'I don’t need everything at once. Little looks are enough.',
+      weight: 52 + Math.min(looks * 2, 20),
+    })
+  } else if (looks === 1) {
+    memories.push({
+      id: 'eyes-first',
+      line: 'You let Haven take a first look. I’m grateful.',
+      whisper: 'Next time you’re ready, show me another shelf.',
+      weight: 44,
+    })
+  }
+
+  if (pantryCount >= 8) {
+    memories.push({
+      id: 'kitchen-known',
+      line: `I’m learning your kitchen — about ${pantryCount} things already live in my memory.`,
+      whisper: seasonWhisper(reference),
+      weight: 42 + Math.min(Math.floor(pantryCount / 5), 20),
+    })
+  }
+
+  try {
+    const bathroom = await db.bathroomReplaceables.count()
+    if (bathroom >= 1) {
+      memories.push({
+        id: 'bathroom-known',
+        line:
+          bathroom === 1
+            ? 'I’m starting to learn your bathroom — one quiet thing at a time.'
+            : `I’m looking after ${bathroom} little bathroom rhythms with you.`,
+        whisper: 'Loofahs, brushes, cloths — the things people forget until they don’t.',
+        weight: 56 + Math.min(bathroom * 3, 18),
+      })
+    }
+  } catch {
+    /* table may not exist yet on older clients mid-migrate */
+  }
+
   return memories.sort((a, b) => b.weight - a.weight)
+}
+
+/** Top memories eligible for today’s gentle rotation (not a feed). */
+export function topMemoriesForDay(
+  memories: HavenMemory[],
+  limit = 5,
+): HavenMemory[] {
+  return memories.slice(0, Math.min(limit, memories.length))
 }
 
 /** One featured memory for the day — stable rotation, not random flicker. */
 export function pickFeaturedMemory(
   memories: HavenMemory[],
   reference = new Date(),
+  offset = 0,
 ): HavenMemory | null {
-  if (memories.length === 0) return null
-  const top = memories.slice(0, Math.min(5, memories.length))
-  const idx = getDayOfYear(reference) % top.length
+  const top = topMemoriesForDay(memories)
+  if (top.length === 0) return null
+  const idx = (getDayOfYear(reference) + offset) % top.length
   return top[idx] ?? top[0]
 }
 

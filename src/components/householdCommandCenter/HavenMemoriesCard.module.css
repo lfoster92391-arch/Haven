@@ -25,6 +25,7 @@
   font-weight: 600;
   line-height: 1.35;
   color: var(--haven-forest, #2f4f3a);
+  animation: fadeIn 0.4s ease;
 }
 
 .whisper {
@@ -34,10 +35,37 @@
   color: var(--haven-text-muted, #5c564f);
 }
 
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-top: 0.85rem;
+}
+
 .privacy {
-  margin: 0.85rem 0 0;
+  margin: 0;
   font-size: 0.72rem;
   color: var(--haven-text-muted, #7a746c);
+}
+
+.another {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+.another:hover {
+  color: var(--haven-sage, #6b8f71);
 }
 
 @keyframes fadeIn {
@@ -52,7 +80,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .card,
+  .line {
     animation: none;
   }
 }

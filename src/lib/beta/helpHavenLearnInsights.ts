@@ -17,9 +17,12 @@ export interface InsightPriority {
   signals: number
 }
 
+export type InsightAudience = 'member' | 'community'
+
 export interface HelpHavenInsightReport {
   generatedAt: string
   mode: 'local-intelligence' | 'llm-enhanced'
+  audience: InsightAudience
   headline: string
   responseCount: number
   sentiment: {
@@ -33,7 +36,7 @@ export interface HelpHavenInsightReport {
   priorities: InsightPriority[]
   bugs: { text: string; who: string; when: string }[]
   praise: { text: string; who: string }[]
-  /** Calm briefing Lisa can skim in one breath */
+  /** Calm briefing the member (or community steward) can skim in one breath */
   narrative: string
   llmNote?: string
 }
@@ -60,7 +63,8 @@ const BUILD_NEXT_LABELS: Record<string, string> = {
   other: 'Something else',
 }
 
-function whoLabel(row: CloudFeedbackRow): string {
+function whoLabel(row: CloudFeedbackRow, audience: InsightAudience): string {
+  if (audience === 'member') return 'You'
   if (row.is_guest || !row.email) return 'Founding Member (guest)'
   return row.email
 }
@@ -103,13 +107,19 @@ function detectIntentTheme(row: CloudFeedbackRow): InsightTheme | null {
   }
 }
 
-function scoreSentiment(rows: CloudFeedbackRow[]): HelpHavenInsightReport['sentiment'] {
+function scoreSentiment(
+  rows: CloudFeedbackRow[],
+  audience: InsightAudience,
+): HelpHavenInsightReport['sentiment'] {
   if (rows.length === 0) {
     return {
       label: 'mixed',
       averageRating: null,
       recommendYesPct: null,
-      summary: 'Haven is still waiting for the first Founders to share how they feel.',
+      summary:
+        audience === 'member'
+          ? 'When you share how a page feels, I’ll gather your insight here — just for you.'
+          : 'Haven is still waiting for the first Founders to share how they feel.',
     }
   }
   const avg = rows.reduce((s, r) => s + (r.rating || 0), 0) / rows.length
@@ -120,11 +130,17 @@ function scoreSentiment(rows: CloudFeedbackRow[]): HelpHavenInsightReport['senti
   else if (avg < 3.4 || yesPct < 35) label = 'needs-care'
 
   const summary =
-    label === 'warm'
-      ? `Founders feel cared for — ${avg.toFixed(1)}★ on average, and ${yesPct}% would recommend Haven.`
-      : label === 'needs-care'
-        ? `Some Founders need more reassurance — ${avg.toFixed(1)}★ average. Listen closely to what’s confusing.`
-        : `Sentiment is mixed but useful — ${avg.toFixed(1)}★ average, ${yesPct}% would recommend Haven so far.`
+    audience === 'member'
+      ? label === 'warm'
+        ? `Your notes feel warm — about ${avg.toFixed(1)}★ on average. Thank you for teaching Haven so kindly.`
+        : label === 'needs-care'
+          ? `Some of your notes ask for a softer path — ${avg.toFixed(1)}★ on average. I’m listening.`
+          : `You’re giving Haven a clear reading — about ${avg.toFixed(1)}★ across what you’ve shared.`
+      : label === 'warm'
+        ? `Founders feel cared for — ${avg.toFixed(1)}★ on average, and ${yesPct}% would recommend Haven.`
+        : label === 'needs-care'
+          ? `Some Founders need more reassurance — ${avg.toFixed(1)}★ average. Listen closely to what’s confusing.`
+          : `Sentiment is mixed but useful — ${avg.toFixed(1)}★ average, ${yesPct}% would recommend Haven so far.`
 
   return { label, averageRating: Math.round(avg * 10) / 10, recommendYesPct: yesPct, summary }
 }
@@ -212,7 +228,10 @@ function buildThemes(rows: CloudFeedbackRow[]): InsightTheme[] {
   return [...map.values()].sort((a, b) => b.count - a.count).slice(0, 8)
 }
 
-function buildDuplicates(themes: InsightTheme[]): HelpHavenInsightReport['duplicates'] {
+function buildDuplicates(
+  themes: InsightTheme[],
+  audience: InsightAudience,
+): HelpHavenInsightReport['duplicates'] {
   return themes
     .filter(t => t.count >= 2)
     .slice(0, 5)
@@ -220,15 +239,20 @@ function buildDuplicates(themes: InsightTheme[]): HelpHavenInsightReport['duplic
       theme: t.label,
       count: t.count,
       note:
-        t.count >= 4
-          ? `${t.count} Founders circled the same idea — strong signal.`
-          : `${t.count} mentions point the same direction.`,
+        audience === 'member'
+          ? t.count >= 3
+            ? `You’ve returned to this ${t.count} times — I’m listening.`
+            : `You’ve mentioned this more than once.`
+          : t.count >= 4
+            ? `${t.count} Founders circled the same idea — strong signal.`
+            : `${t.count} mentions point the same direction.`,
     }))
 }
 
 function buildPriorities(
   themes: InsightTheme[],
   rows: CloudFeedbackRow[],
+  audience: InsightAudience,
 ): InsightPriority[] {
   const fromThemes = themes
     .filter(t => t.kind === 'wish' || t.kind === 'bug' || t.kind === 'confused')
@@ -237,11 +261,17 @@ function buildPriorities(
       rank: i + 1,
       title: t.label.replace(/^Learn next:\s*/i, ''),
       why:
-        t.kind === 'bug'
-          ? 'Something felt off more than once — worth a calm fix.'
-          : t.kind === 'confused'
-            ? 'Founders got lost here — clarity reduces mental load.'
-            : 'Founders asked Haven to grow here next.',
+        audience === 'member'
+          ? t.kind === 'bug'
+            ? 'You noticed something felt off — I’ll keep that close.'
+            : t.kind === 'confused'
+              ? 'You got a little lost here — clarity reduces mental load.'
+              : 'You asked Haven to grow here next.'
+          : t.kind === 'bug'
+            ? 'Something felt off more than once — worth a calm fix.'
+            : t.kind === 'confused'
+              ? 'Founders got lost here — clarity reduces mental load.'
+              : 'Founders asked Haven to grow here next.',
       signals: t.count,
     }))
 
@@ -258,35 +288,43 @@ function buildPriorities(
     .map(([id, count], i) => ({
       rank: i + 1,
       title: BUILD_NEXT_LABELS[id] ?? id,
-      why: 'Top “learn next” vote from Help Haven Learn.',
+      why:
+        audience === 'member'
+          ? 'From what you’ve asked Haven to learn next.'
+          : 'Top “learn next” vote from Help Haven Learn.',
       signals: count,
     }))
 }
 
-function buildBugs(rows: CloudFeedbackRow[]): HelpHavenInsightReport['bugs'] {
+function buildBugs(rows: CloudFeedbackRow[], audience: InsightAudience): HelpHavenInsightReport['bugs'] {
   return rows
     .filter(r => r.confusing_broken?.trim())
     .slice(0, 8)
     .map(r => ({
-      text: r.confusing_broken!.trim(),
-      who: whoLabel(r),
+      text: r.confusing_broken!.trim().replace(/^\[(love|idea|bug|confused|wish|voice)\]\s*/i, ''),
+      who: whoLabel(r, audience),
       when: formatWhen(r.created_at),
     }))
 }
 
-function buildPraise(rows: CloudFeedbackRow[]): HelpHavenInsightReport['praise'] {
+function buildPraise(rows: CloudFeedbackRow[], audience: InsightAudience): HelpHavenInsightReport['praise'] {
   return rows
     .filter(r => r.working_well?.trim() && r.rating >= 4)
     .slice(0, 6)
     .map(r => ({
-      text: r.working_well!.trim(),
-      who: whoLabel(r),
+      text: r.working_well!.trim().replace(/^\[(love|idea|bug|confused|wish|voice)\]\s*/i, ''),
+      who: whoLabel(r, audience),
     }))
 }
 
-function buildNarrative(report: Omit<HelpHavenInsightReport, 'narrative' | 'llmNote'>): string {
+function buildNarrative(
+  report: Omit<HelpHavenInsightReport, 'narrative' | 'llmNote'>,
+): string {
+  const member = report.audience === 'member'
   if (report.responseCount === 0) {
-    return 'No Help Haven Learn notes yet. When Founders tap the leaf, their feelings will gather here — calmly, for you alone.'
+    return member
+      ? 'You haven’t shared a Help Haven Learn note yet. When you tap the leaf, your insight gathers here — calmly, just for you.'
+      : 'No Help Haven Learn notes yet. When Founders tap the leaf, their feelings will gather here — calmly.'
   }
 
   const top = report.priorities[0]
@@ -294,21 +332,45 @@ function buildNarrative(report: Omit<HelpHavenInsightReport, 'narrative' | 'llmN
   const parts = [
     report.sentiment.summary,
     top
-      ? `If I were gently steering the next slice, I’d start with ${top.title.toLowerCase()} (${top.signals} signal${top.signals === 1 ? '' : 's'}).`
-      : 'There isn’t a loud priority yet — keep listening.',
+      ? member
+        ? `From what you’ve shared, the clearest next step looks like ${top.title.toLowerCase()}.`
+        : `If I were gently steering the next slice, I’d start with ${top.title.toLowerCase()} (${top.signals} signal${top.signals === 1 ? '' : 's'}).`
+      : member
+        ? 'There isn’t one loud theme yet — every note still teaches me.'
+        : 'There isn’t a loud priority yet — keep listening.',
     love
-      ? `What’s already landing: ${love.examples[0] ?? love.label}.`
+      ? member
+        ? `Something that’s already landing for you: ${love.examples[0] ?? love.label}.`
+        : `What’s already landing: ${love.examples[0] ?? love.label}.`
       : report.praise[0]
-        ? `A Founder said: “${report.praise[0].text}”`
-        : 'Praise is still light — every star still teaches Haven.',
+        ? member
+          ? `You said: “${report.praise[0].text}”`
+          : `A Founder said: “${report.praise[0].text}”`
+        : member
+          ? 'Keep sharing how pages feel — stars teach Haven too.'
+          : 'Praise is still light — every star still teaches Haven.',
     report.bugs.length > 0
-      ? `${report.bugs.length} note${report.bugs.length === 1 ? '' : 's'} mention confusion or friction — skim those first.`
-      : 'No sharp friction notes in this batch.',
+      ? member
+        ? `You also named ${report.bugs.length === 1 ? 'a moment' : 'moments'} of friction — I’ll remember those.`
+        : `${report.bugs.length} note${report.bugs.length === 1 ? '' : 's'} mention confusion or friction — skim those first.`
+      : member
+        ? 'No sharp friction in what you’ve shared lately.'
+        : 'No sharp friction notes in this batch.',
   ]
   return parts.join(' ')
 }
 
-function buildHeadline(sentiment: HelpHavenInsightReport['sentiment'], count: number): string {
+function buildHeadline(
+  sentiment: HelpHavenInsightReport['sentiment'],
+  count: number,
+  audience: InsightAudience,
+): string {
+  if (audience === 'member') {
+    if (count === 0) return 'Your insight will live here'
+    if (sentiment.label === 'warm') return 'You’re teaching Haven with care'
+    if (sentiment.label === 'needs-care') return 'You’re asking for a softer path'
+    return 'Here’s what you’ve taught Haven'
+  }
   if (count === 0) return 'Still getting to know your Founders'
   if (sentiment.label === 'warm') return 'Founders are teaching Haven with care'
   if (sentiment.label === 'needs-care') return 'A few Founders need a softer path'
@@ -317,19 +379,23 @@ function buildHeadline(sentiment: HelpHavenInsightReport['sentiment'], count: nu
 
 /**
  * Local “AI” summarization — clusters, sentiment, and priorities without a network call.
- * Always available offline for Lisa’s dashboard.
+ * `member` = the Founding Member’s own notes; `community` = steward/admin aggregate.
  */
-export function summarizeHelpHavenLearn(rows: CloudFeedbackRow[]): HelpHavenInsightReport {
-  const sentiment = scoreSentiment(rows)
+export function summarizeHelpHavenLearn(
+  rows: CloudFeedbackRow[],
+  audience: InsightAudience = 'member',
+): HelpHavenInsightReport {
+  const sentiment = scoreSentiment(rows, audience)
   const themes = buildThemes(rows)
-  const duplicates = buildDuplicates(themes)
-  const priorities = buildPriorities(themes, rows)
-  const bugs = buildBugs(rows)
-  const praise = buildPraise(rows)
+  const duplicates = buildDuplicates(themes, audience)
+  const priorities = buildPriorities(themes, rows, audience)
+  const bugs = buildBugs(rows, audience)
+  const praise = buildPraise(rows, audience)
   const base = {
     generatedAt: new Date().toISOString(),
     mode: 'local-intelligence' as const,
-    headline: buildHeadline(sentiment, rows.length),
+    audience,
+    headline: buildHeadline(sentiment, rows.length, audience),
     responseCount: rows.length,
     sentiment,
     themes,
@@ -363,6 +429,7 @@ export async function enhanceInsightNarrative(
     note: r.build_next_note,
   }))
 
+  const forMember = report.audience === 'member'
   try {
     const res = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -377,8 +444,9 @@ export async function enhanceInsightNarrative(
         messages: [
           {
             role: 'system',
-            content:
-              'You help Lisa, founder of Haven (a calm household assistant). Summarize Help Haven Learn feedback in 3–5 short warm paragraphs. No bullet lists. No corporate tone. Mention themes, friction, and one recommended next priority. Never invent quotes.',
+            content: forMember
+              ? 'You are Haven, a calm household assistant speaking to one Founding Member about their own Help Haven Learn notes. Use second person (“you”). 3–5 short warm paragraphs. No bullet lists. No corporate tone. Never invent quotes. Never mention Lisa or an admin.'
+              : 'You summarize Help Haven Learn community notes for a product steward. 3–5 short warm paragraphs. No bullet lists. No corporate tone. Mention themes, friction, and one recommended next priority. Never invent quotes.',
           },
           {
             role: 'user',
@@ -414,9 +482,37 @@ export async function enhanceInsightNarrative(
 
 export async function buildHelpHavenInsightReport(
   rows: CloudFeedbackRow[],
-  opts?: { enhance?: boolean },
+  opts?: { enhance?: boolean; audience?: InsightAudience },
 ): Promise<HelpHavenInsightReport> {
-  const local = summarizeHelpHavenLearn(rows)
+  const audience = opts?.audience ?? 'member'
+  const local = summarizeHelpHavenLearn(rows, audience)
   if (opts?.enhance === false) return local
   return enhanceInsightNarrative(local, rows)
+}
+
+/** Member’s own Help Haven Learn insight from on-device notes only. */
+export async function buildMemberHelpHavenInsight(
+  opts?: { enhance?: boolean },
+): Promise<HelpHavenInsightReport> {
+  const { db } = await import('../../db/database')
+  const local = await db.betaFeedbackResponses.orderBy('createdAt').reverse().limit(50).toArray()
+  const rows: CloudFeedbackRow[] = local.map(r => ({
+    id: String(r.id ?? r.createdAt),
+    user_id: r.userId ?? null,
+    email: r.email ?? null,
+    rating: r.rating,
+    recommend: r.recommend,
+    working_well: r.intent && r.workingWell ? `[${r.intent}] ${r.workingWell}` : r.workingWell ?? null,
+    confusing_broken:
+      r.intent && r.confusingBroken ? `[${r.intent}] ${r.confusingBroken}` : r.confusingBroken ?? null,
+    build_next: (r.buildNext as string) ?? null,
+    build_next_note:
+      r.intent && r.buildNextNote ? `[${r.intent}] ${r.buildNextNote}` : r.buildNextNote ?? null,
+    created_at: r.createdAt,
+    is_guest: !r.userId,
+  }))
+  return buildHelpHavenInsightReport(rows, {
+    enhance: opts?.enhance ?? false,
+    audience: 'member',
+  })
 }

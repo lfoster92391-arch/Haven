@@ -1,0 +1,130 @@
+.page {
+  max-width: var(--haven-content-max, 960px);
+  margin: 0 auto;
+  padding: var(--haven-page-padding, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--dense-gap, 1rem);
+}
+
+.betaBanner {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(74, 103, 65, 0.08);
+  font-size: 0.9rem;
+  color: var(--haven-text, #2c2a26);
+  line-height: 1.4;
+}
+
+.intro {
+  color: var(--haven-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.decisionCard {
+  border-left: 4px solid var(--priority-color, var(--haven-sage));
+  padding: var(--space-md, 1rem);
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-left-width: 4px;
+  border-radius: var(--haven-radius);
+  box-shadow: 0 1px 4px var(--haven-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.decisionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.decisionTitle {
+  font-family: var(--font-serif);
+  font-size: var(--section-header-size, 0.9375rem);
+  margin: 0;
+  color: var(--haven-text);
+}
+
+.decisionDesc {
+  margin: 0;
+  font-size: var(--meta-size, 0.8125rem);
+  color: var(--haven-text-muted);
+}
+
+.decisionActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btnAction {
+  background: var(--haven-forest);
+  color: white;
+  border: none;
+  min-height: var(--btn-sm-height, 32px);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.btnAction:hover {
+  background: var(--haven-deep-forest);
+}
+
+.btnAction:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--haven-forest);
+  border: 1px solid var(--haven-border);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.savings {
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.moduleBadge {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  background: var(--haven-warm-white);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.message {
+  padding: 0.75rem 1rem;
+  background: var(--haven-warm-white);
+  border-radius: var(--haven-radius);
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+}
+
+.empty {
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.link {
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+}

@@ -1,0 +1,100 @@
+.inbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dense-gap, 1rem);
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* Life list — soft companion notes, not accordion OS chrome */
+.lifeSection {
+  border: none;
+  background: transparent;
+  margin-bottom: 0.35rem;
+  overflow: visible;
+}
+
+.lifeSection > button {
+  padding-left: 0.15rem;
+  padding-right: 0.15rem;
+}
+
+.lifeSection > button h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+}
+
+.lifeSection > div {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.message {
+  padding: 0.75rem 1rem;
+  background: var(--haven-warm-white);
+  border-radius: var(--haven-radius);
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.empty {
+  padding: 1.25rem;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+}
+
+.empty p {
+  margin: 0 0 0.75rem;
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.intelLink {
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.intelLink:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+}
+
+.footerWhisper {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted, #7a746c);
+  font-style: italic;
+}
+
+.refreshBtn {
+  background: transparent;
+  color: var(--haven-forest);
+  border: 1px solid var(--haven-border);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--haven-radius);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.refreshBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

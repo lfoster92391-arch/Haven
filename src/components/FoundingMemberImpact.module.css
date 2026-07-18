@@ -108,6 +108,11 @@
   margin-top: 1rem;
 }
 
+.insightBlock {
+  margin-top: 1rem;
+  padding-top: 0.15rem;
+}
+
 .primary {
   border: none;
   background: var(--haven-forest, #2f4f3a);

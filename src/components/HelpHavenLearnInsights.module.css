@@ -250,3 +250,18 @@
   color: var(--haven-forest, #2f4f3a);
   font-size: 0.72rem;
 }
+
+.compact .hero {
+  padding-bottom: 0.85rem;
+}
+
+.compactNext {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted, #5c564f);
+  line-height: 1.4;
+}
+
+.compactNext strong {
+  color: var(--haven-forest, #2f4f3a);
+}

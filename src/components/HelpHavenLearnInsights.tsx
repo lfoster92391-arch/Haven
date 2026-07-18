@@ -5,6 +5,9 @@ export interface HelpHavenLearnInsightsProps {
   report: HelpHavenInsightReport
   enhancing?: boolean
   onRefreshEnhance?: () => void
+  /** Override eyebrow; defaults from audience */
+  eyebrow?: string
+  compact?: boolean
 }
 
 function sentimentClass(label: HelpHavenInsightReport['sentiment']['label']): string {
@@ -17,11 +20,16 @@ export function HelpHavenLearnInsights({
   report,
   enhancing,
   onRefreshEnhance,
+  eyebrow,
+  compact,
 }: HelpHavenLearnInsightsProps) {
+  const member = report.audience === 'member'
+  const defaultEyebrow = member ? '🌿 Your insight' : '🌿 Community signals'
+
   return (
-    <div className={styles.wrap}>
+    <div className={`${styles.wrap} ${compact ? styles.compact : ''}`}>
       <header className={styles.hero}>
-        <p className={styles.eyebrow}>🌿 Help Haven Learn · Lisa</p>
+        <p className={styles.eyebrow}>{eyebrow ?? defaultEyebrow}</p>
         <h2 className={styles.headline}>{report.headline}</h2>
         <p className={styles.narrative}>{report.narrative}</p>
         <div className={styles.metaRow}>
@@ -33,11 +41,11 @@ export function HelpHavenLearnInsights({
                 : 'Mixed'}
           </span>
           <span className={styles.meta}>
-            {report.responseCount} response{report.responseCount === 1 ? '' : 's'}
+            {report.responseCount} note{report.responseCount === 1 ? '' : 's'}
             {report.sentiment.averageRating != null
               ? ` · ${report.sentiment.averageRating}★`
               : ''}
-            {report.mode === 'llm-enhanced' ? ' · Cloud polish' : ' · Local intelligence'}
+            {report.mode === 'llm-enhanced' ? ' · Polished' : ' · Haven’s reading'}
           </span>
           {onRefreshEnhance && (
             <button
@@ -53,9 +61,11 @@ export function HelpHavenLearnInsights({
         {report.llmNote && <p className={styles.llmNote}>{report.llmNote}</p>}
       </header>
 
-      {report.priorities.length > 0 && (
-        <section className={styles.section} aria-label="Suggested priorities">
-          <h3 className={styles.sectionTitle}>Suggested next priorities</h3>
+      {!compact && report.priorities.length > 0 && (
+        <section className={styles.section} aria-label={member ? 'What you asked for next' : 'Suggested priorities'}>
+          <h3 className={styles.sectionTitle}>
+            {member ? 'What you’ve asked for next' : 'Suggested next priorities'}
+          </h3>
           <ol className={styles.priorityList}>
             {report.priorities.map(p => (
               <li key={p.rank} className={styles.priorityItem}>
@@ -72,9 +82,11 @@ export function HelpHavenLearnInsights({
         </section>
       )}
 
-      {report.duplicates.length > 0 && (
+      {!compact && report.duplicates.length > 0 && (
         <section className={styles.section} aria-label="Repeated themes">
-          <h3 className={styles.sectionTitle}>Repeated themes</h3>
+          <h3 className={styles.sectionTitle}>
+            {member ? 'Themes you return to' : 'Repeated themes'}
+          </h3>
           <ul className={styles.themeList}>
             {report.duplicates.map(d => (
               <li key={d.theme} className={styles.themeItem}>
@@ -87,39 +99,45 @@ export function HelpHavenLearnInsights({
         </section>
       )}
 
-      <div className={styles.split}>
-        {report.praise.length > 0 && (
-          <section className={styles.section} aria-label="What’s landing">
-            <h3 className={styles.sectionTitle}>What’s landing</h3>
-            <ul className={styles.quoteList}>
-              {report.praise.map((p, i) => (
-                <li key={`${p.who}-${i}`}>
-                  <p className={styles.quote}>“{p.text}”</p>
-                  <p className={styles.quoteWho}>{p.who}</p>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+      {!compact && (
+        <div className={styles.split}>
+          {report.praise.length > 0 && (
+            <section className={styles.section} aria-label={member ? 'What you loved' : 'What’s landing'}>
+              <h3 className={styles.sectionTitle}>
+                {member ? 'What you loved' : 'What’s landing'}
+              </h3>
+              <ul className={styles.quoteList}>
+                {report.praise.map((p, i) => (
+                  <li key={`${p.who}-${i}`}>
+                    <p className={styles.quote}>“{p.text}”</p>
+                    <p className={styles.quoteWho}>{p.who}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-        {report.bugs.length > 0 && (
-          <section className={styles.section} aria-label="Friction to tend">
-            <h3 className={styles.sectionTitle}>Friction to tend</h3>
-            <ul className={styles.quoteList}>
-              {report.bugs.map((b, i) => (
-                <li key={`${b.when}-${i}`}>
-                  <p className={styles.quote}>{b.text}</p>
-                  <p className={styles.quoteWho}>
-                    {b.who} · {b.when}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-      </div>
+          {report.bugs.length > 0 && (
+            <section className={styles.section} aria-label={member ? 'What felt off' : 'Friction to tend'}>
+              <h3 className={styles.sectionTitle}>
+                {member ? 'What felt off' : 'Friction to tend'}
+              </h3>
+              <ul className={styles.quoteList}>
+                {report.bugs.map((b, i) => (
+                  <li key={`${b.when}-${i}`}>
+                    <p className={styles.quote}>{b.text}</p>
+                    <p className={styles.quoteWho}>
+                      {b.who} · {b.when}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      )}
 
-      {report.themes.length > 0 && (
+      {!compact && report.themes.length > 0 && (
         <section className={styles.section} aria-label="All themes">
           <h3 className={styles.sectionTitle}>Theme map</h3>
           <ul className={styles.chipCloud}>
@@ -131,6 +149,12 @@ export function HelpHavenLearnInsights({
             ))}
           </ul>
         </section>
+      )}
+
+      {compact && report.priorities[0] && (
+        <p className={styles.compactNext}>
+          Clearest next ask: <strong>{report.priorities[0].title}</strong>
+        </p>
       )}
     </div>
   )

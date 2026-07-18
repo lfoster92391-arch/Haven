@@ -1,0 +1,105 @@
+.card {
+  padding: 0.95rem 1rem 1.05rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(47, 79, 58, 0.1);
+  border-radius: 0.85rem;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.area {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--haven-sage, #6b8f71);
+  flex: 1;
+}
+
+.example {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted, #7a746c);
+}
+
+.header :global(button) {
+  margin-left: auto;
+}
+
+.title {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--haven-forest, #2f4f3a);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.why {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--haven-text-muted, #5c564f);
+}
+
+.reasons {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.reasons li {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted, #6b6560);
+  line-height: 1.35;
+  padding-left: 0.85rem;
+  position: relative;
+}
+
+.reasons li::before {
+  content: '·';
+  position: absolute;
+  left: 0.2rem;
+  color: var(--haven-sage, #6b8f71);
+}
+
+.metric {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--haven-text-muted, #7a746c);
+}
+
+.actionBtn {
+  align-self: flex-start;
+  margin-top: 0.55rem;
+  background: var(--haven-forest, #2f4f3a);
+  color: #f7f3eb;
+  border: 1px solid rgba(47, 79, 58, 0.28);
+  min-height: var(--btn-sm-height, 36px);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.actionBtn:hover {
+  filter: brightness(1.05);
+}
+
+.actionBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}

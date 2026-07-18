@@ -21,9 +21,15 @@ export type { FeedbackSubmitInput, CloudFeedbackRow } from './feedback'
 export {
   summarizeHelpHavenLearn,
   buildHelpHavenInsightReport,
+  buildMemberHelpHavenInsight,
   enhanceInsightNarrative,
 } from './helpHavenLearnInsights'
-export type { HelpHavenInsightReport, InsightTheme, InsightPriority } from './helpHavenLearnInsights'
+export type {
+  HelpHavenInsightReport,
+  InsightTheme,
+  InsightPriority,
+  InsightAudience,
+} from './helpHavenLearnInsights'
 export { openHelpHavenLearn, HELP_HAVEN_LEARN_OPEN_EVENT } from './helpHavenLearnEvents'
 export { markFoundersWelcomeSeen, shouldShowFoundersWelcome } from './foundersWelcome'
 export {

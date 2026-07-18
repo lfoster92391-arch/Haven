@@ -4,18 +4,28 @@ import {
   getFoundingMemberImpact,
   type FoundingMemberImpact,
 } from '../lib/beta/foundingMemberImpact'
+import {
+  buildMemberHelpHavenInsight,
+  type HelpHavenInsightReport,
+} from '../lib/beta/helpHavenLearnInsights'
 import { openHelpHavenLearn } from '../lib/beta/helpHavenLearnEvents'
+import { HelpHavenLearnInsights } from './HelpHavenLearnInsights'
 import styles from './FoundingMemberImpact.module.css'
 
 export function FoundingMemberImpactCard() {
   const [impact, setImpact] = useState<FoundingMemberImpact | null>(null)
+  const [insight, setInsight] = useState<HelpHavenInsightReport | null>(null)
 
   useEffect(() => {
     let cancelled = false
     const load = () => {
-      void getFoundingMemberImpact().then(data => {
-        if (!cancelled) setImpact(data)
-      })
+      void Promise.all([getFoundingMemberImpact(), buildMemberHelpHavenInsight({ enhance: false })]).then(
+        ([impactData, insightData]) => {
+          if (cancelled) return
+          setImpact(impactData)
+          setInsight(insightData)
+        },
+      )
     }
     load()
     window.addEventListener('haven:founders-impact-updated', load)
@@ -28,6 +38,7 @@ export function FoundingMemberImpactCard() {
   useEffect(() => {
     function onFocus() {
       void getFoundingMemberImpact().then(setImpact)
+      void buildMemberHelpHavenInsight({ enhance: false }).then(setInsight)
     }
     window.addEventListener('focus', onFocus)
     return () => window.removeEventListener('focus', onFocus)
@@ -41,7 +52,7 @@ export function FoundingMemberImpactCard() {
       <h2 className={styles.title}>Your Impact</h2>
       <p className={styles.lead}>
         {impact.empty
-          ? 'You’re helping raise Haven. When you share how a page feels, it shows up here.'
+          ? 'You’re helping raise Haven. When you share how a page feels, your insight shows up here.'
           : 'You’ve helped Haven grow — quietly, one note at a time.'}
       </p>
 
@@ -78,6 +89,12 @@ export function FoundingMemberImpactCard() {
               <li key={f.id}>{f.title}</li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {insight && (
+        <div className={styles.insightBlock}>
+          <HelpHavenLearnInsights report={insight} compact />
         </div>
       )}
 

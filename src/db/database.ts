@@ -1760,6 +1760,29 @@ export interface BetaFeedbackResponse {
   syncedToCloud?: boolean
 }
 
+/** Bathroom / home-care replaceables — quiet lifecycle, not inventory */
+export type BathroomReplaceableKind =
+  | 'toothbrush'
+  | 'brush-head'
+  | 'loofah'
+  | 'shower-pouf'
+  | 'washcloth'
+  | 'razor'
+  | 'floss'
+
+export interface BathroomReplaceable {
+  id?: number
+  kind: BathroomReplaceableKind
+  label: string
+  /** ISO date when the current item started / was last replaced */
+  startedAt: string
+  /** Typical life in days */
+  intervalDays: number
+  notes?: string
+  createdAt: string
+  updatedAt: string
+}
+
 class HavenDatabase extends Dexie {
   tasks!: EntityTable<Task, 'id'>
   bills!: EntityTable<Bill, 'id'>
@@ -1876,6 +1899,7 @@ class HavenDatabase extends Dexie {
   syncMeta!: EntityTable<SyncMetaRecord, 'id'>
   betaFeedbackPrompt!: EntityTable<BetaFeedbackPrompt, 'id'>
   betaFeedbackResponses!: EntityTable<BetaFeedbackResponse, 'id'>
+  bathroomReplaceables!: EntityTable<BathroomReplaceable, 'id'>
 
   constructor() {
     super('HavenDB')
@@ -2231,6 +2255,9 @@ class HavenDatabase extends Dexie {
     this.version(59).stores({
       betaFeedbackPrompt: 'id, updatedAt',
       betaFeedbackResponses: '++id, createdAt, rating, syncedToCloud',
+    })
+    this.version(60).stores({
+      bathroomReplaceables: '++id, kind, startedAt, updatedAt',
     })
   }
 }

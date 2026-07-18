@@ -65,7 +65,10 @@ export function BetaTesters() {
       const [t, f] = await Promise.all([fetchBetaTesters(), fetchCloudFeedback()])
       setTesters(t)
       setFeedback(f)
-      const report = await buildHelpHavenInsightReport(f.rows, { enhance: false })
+      const report = await buildHelpHavenInsightReport(f.rows, {
+        enhance: false,
+        audience: 'community',
+      })
       setInsights(report)
     } finally {
       setLoading(false)
@@ -80,7 +83,10 @@ export function BetaTesters() {
     if (!feedback) return
     setEnhancing(true)
     try {
-      const report = await buildHelpHavenInsightReport(feedback.rows, { enhance: true })
+      const report = await buildHelpHavenInsightReport(feedback.rows, {
+        enhance: true,
+        audience: 'community',
+      })
       setInsights(report)
     } finally {
       setEnhancing(false)
@@ -109,7 +115,7 @@ export function BetaTesters() {
         <PageHeader
           icon="🌿"
           title="Help Haven Learn"
-          subtitle="Lisa’s calm reading of what Founders are teaching Haven."
+          subtitle="Community signals from Founders teaching Haven."
         />
         <p className={styles.muted}>Loading…</p>
       </div>
@@ -122,12 +128,11 @@ export function BetaTesters() {
         <PageHeader
           icon="🌿"
           title="Help Haven Learn"
-          subtitle="Lisa’s calm reading of what Founders are teaching Haven."
+          subtitle="Community signals from Founders teaching Haven."
         />
         <Card title="Admin access" compact>
           <p className={styles.body}>
-            This view is for Lisa — summaries, themes, and Founders notes from Help Haven Learn.
-            Enter the admin key
+            This steward view aggregates Help Haven Learn notes across Founders. Enter the admin key
             {getBetaAdminKey() ? '' : ' (or type “beta” for a mock preview)'}.
           </p>
           <p className={styles.muted}>

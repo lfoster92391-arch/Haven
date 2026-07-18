@@ -1,0 +1,196 @@
+.card {
+  margin: 0;
+  padding: 1.2rem 1.25rem 1.2rem;
+  border-radius: var(--haven-radius-lg, 1rem);
+  border: 1px solid rgba(47, 79, 58, 0.12);
+  background:
+    radial-gradient(ellipse 75% 70% at 100% 0%, rgba(143, 168, 140, 0.16), transparent 55%),
+    linear-gradient(165deg, #fbf8f2 0%, #f1ebe0 100%);
+  animation: fadeIn 0.45s ease;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--haven-sage, #6b8f71);
+}
+
+.title {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.15rem, 3vw, 1.35rem);
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  line-height: 1.3;
+}
+
+.copy {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--haven-text-muted, #5c564f);
+}
+
+.saved {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  color: var(--haven-forest, #2f4f3a);
+}
+
+.dueList {
+  list-style: none;
+  margin: 0.9rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.dueItem {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(47, 79, 58, 0.08);
+}
+
+.dueLine {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--haven-forest, #2f4f3a);
+}
+
+.dueWhisper {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.refreshBtn {
+  margin: 0;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(47, 79, 58, 0.22);
+  background: transparent;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.refreshBtn:hover {
+  background: rgba(47, 79, 58, 0.06);
+}
+
+.btn {
+  display: inline-flex;
+  margin-top: 0.95rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(47, 79, 58, 0.28);
+  background: var(--haven-forest, #2f4f3a);
+  color: #f7f3eb;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.learn {
+  margin-top: 0.85rem;
+}
+
+.learnHint {
+  margin: 0 0 0.55rem;
+  font-size: 0.82rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip,
+.chipOn {
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.82rem;
+  cursor: pointer;
+  border: 1px solid rgba(47, 79, 58, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--haven-text, #2c2a26);
+}
+
+.chipOn {
+  border-color: rgba(47, 79, 58, 0.45);
+  background: rgba(47, 79, 58, 0.1);
+  color: var(--haven-forest, #2f4f3a);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.actions .btn {
+  margin-top: 0.85rem;
+}
+
+.ghost {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--haven-text-muted, #6b6560);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}

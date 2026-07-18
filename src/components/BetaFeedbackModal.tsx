@@ -268,7 +268,7 @@ export function BetaFeedbackModal({ justSignedIn, openNonce = 0 }: BetaFeedbackM
             <p className={styles.subtitle}>
               You just helped Haven become a little smarter.
               <br />
-              I’ll make sure Lisa sees this.
+              I’ll remember this as we grow together.
             </p>
             <p className={styles.heart} aria-hidden>
               ❤️

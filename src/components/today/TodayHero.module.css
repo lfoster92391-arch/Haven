@@ -1,0 +1,104 @@
+.hero {
+  margin: 0 0 1rem;
+  padding: 1.2rem 1.25rem 1.25rem;
+  border-radius: var(--haven-radius-lg, 1rem);
+  border: 1px solid rgba(47, 79, 58, 0.12);
+  background:
+    radial-gradient(ellipse 80% 70% at 0% 0%, rgba(107, 143, 113, 0.16), transparent 55%),
+    linear-gradient(165deg, #fbf8f2 0%, #f0e9dd 100%);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--haven-sage, #6b8f71);
+}
+
+.greeting {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.35rem, 3.5vw, 1.65rem);
+  color: var(--haven-forest, #2f4f3a);
+  margin: 0 0 0.45rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.summary {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--haven-text, #2c2a26);
+  line-height: 1.5;
+}
+
+.primary {
+  margin: 1rem 0 0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(47, 79, 58, 0.1);
+}
+
+.primaryLabel {
+  margin: 0 0 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--haven-sage, #6b8f71);
+}
+
+.primaryTitle {
+  margin: 0;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  line-height: 1.3;
+}
+
+.primaryWhy {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--haven-text-muted, #5c564f);
+}
+
+.primaryBtn {
+  display: inline-flex;
+  margin-top: 0.75rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: 999px;
+  border: 1px solid rgba(47, 79, 58, 0.28);
+  background: var(--haven-forest, #2f4f3a);
+  color: #f7f3eb;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.stats {
+  margin: 0.85rem 0 0;
+  font-size: 0.88rem;
+  color: var(--haven-text-muted, #5c564f);
+  line-height: 1.4;
+}
+
+.closing {
+  margin: 0.35rem 0 0;
+  font-size: 0.82rem;
+  color: var(--haven-text-muted, #7a746c);
+  font-style: italic;
+}
