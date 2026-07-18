@@ -8,7 +8,7 @@ export interface ShoppingBriefHeroProps {
 export function ShoppingBriefHero({ brief }: ShoppingBriefHeroProps) {
   return (
     <section className={styles.hero} aria-label="Savings morning briefing">
-      <p className={styles.heroEyebrow}>Morning briefing</p>
+      <p className={styles.heroEyebrow}>Savings</p>
       <h2 className={styles.heroGreeting}>{brief.greeting}</h2>
       {brief.question && <p className={styles.heroQuestion}>{brief.question}</p>}
       <p className={styles.heroHeadline}>{brief.headline}</p>

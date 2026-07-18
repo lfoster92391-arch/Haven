@@ -1,3 +1,11 @@
+.whisper {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--haven-text-muted, #7a746c);
+}
+
 .healthCard {
   display: flex;
   gap: 2rem;

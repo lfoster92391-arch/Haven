@@ -66,8 +66,8 @@ export function Layout({ children }: LayoutProps) {
         <div className={styles.brand}>
           <img src="/logo.png" alt="Haven" className={styles.logo} decoding="async" />
           <div className={styles.brandText}>
-            <h1 className={styles.brandName}>HAVEN</h1>
-            <p className={styles.tagline}>Welcome Home.</p>
+            <h1 className={styles.brandName}>Haven</h1>
+            <p className={styles.tagline}>Welcome home.</p>
           </div>
         </div>
 
@@ -88,12 +88,12 @@ export function Layout({ children }: LayoutProps) {
         </nav>
 
         <div className={styles.sidebarFooter}>
-          <Link to="/account" className={styles.visionLink}>🔐 Account & Sync</Link>
-          <Link to="/welcome" className={styles.visionLink}>🏠 Welcome setup</Link>
-          <Link to="/vision" className={styles.visionLink}>🌿 Why Haven Exists</Link>
-          <Link to="/support" className={styles.visionLink}>💚 Support Haven</Link>
-          <a href={`mailto:${FOUNDER_VISION.contact.email}`} className={styles.visionLink}>✉️ Contact us</a>
-          <p className={styles.offlineBadge}>● Offline Ready</p>
+          <Link to="/account" className={styles.visionLink}>Account & Sync</Link>
+          {!lockdown && <Link to="/welcome" className={styles.visionLink}>Welcome setup</Link>}
+          <Link to="/vision" className={styles.visionLink}>Why Haven Exists</Link>
+          <Link to="/support" className={styles.visionLink}>Support Haven</Link>
+          <a href={`mailto:${FOUNDER_VISION.contact.email}`} className={styles.visionLink}>Contact us</a>
+          <p className={styles.offlineBadge}>Ready offline</p>
         </div>
       </aside>
 

@@ -1,0 +1,646 @@
+.page {
+  animation: fadeIn 0.4s ease;
+  overflow-x: hidden;
+  max-width: 100%;
+  min-width: 0;
+  touch-action: pan-y pinch-zoom;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.schoolNote {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  margin: -0.5rem 0 1.25rem;
+  line-height: 1.5;
+}
+
+.whisper {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--haven-text-muted, #7a746c);
+  text-align: center;
+}
+
+.quietLink {
+  font-size: 0.9rem;
+  align-self: center;
+  color: var(--haven-forest, #2f4f3a);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.topActionsQuiet {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.35rem 0 1rem;
+}
+
+.schoolNote a {
+  color: var(--haven-forest);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.schoolNote a:hover {
+  text-decoration: underline;
+}
+
+.topActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.offlineNote {
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin-bottom: 1rem;
+}
+
+.errorBanner {
+  background: rgba(196, 92, 74, 0.1);
+  border: 1px solid #c45c4a;
+  border-radius: var(--haven-radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: #a04030;
+  margin-bottom: 1rem;
+}
+
+.barcodeBanner {
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.08);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--haven-radius);
+  margin: 0 0 0.5rem;
+}
+
+.savingsBanner {
+  background: linear-gradient(135deg, rgba(196, 163, 90, 0.2) 0%, rgba(74, 103, 65, 0.1) 100%);
+  border: 1px solid var(--haven-gold);
+  border-radius: var(--haven-radius-lg);
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--haven-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+  min-width: 0;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-height: 44px;
+}
+
+.tab:hover {
+  color: var(--haven-forest);
+}
+
+.tabActive {
+  color: var(--haven-forest);
+  border-bottom-color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.formRow {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.input, .select {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  background: white;
+  font-size: 0.95rem;
+}
+
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--haven-sage);
+}
+
+.dealsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.25rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.dealCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.dealItem {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.dealReason {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin: 0;
+}
+
+.dealSavings {
+  font-weight: 600;
+  color: var(--haven-forest);
+  margin: 0;
+}
+
+.dealDiscount {
+  font-size: 0.85rem;
+  color: var(--haven-gold);
+  margin: 0;
+}
+
+.dealSource {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  margin: 0;
+}
+
+.dealImg {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  border-radius: var(--haven-radius);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  background: var(--haven-warm-white);
+  border-radius: 10px;
+  color: var(--haven-text-muted);
+  margin-left: 0.5rem;
+}
+
+.empty {
+  color: var(--haven-text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem 0;
+  margin: 0;
+}
+
+.couponList, .groceryList {
+  list-style: none;
+}
+
+.couponItem, .groceryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  gap: 1rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.couponItem:last-child, .groceryItem:last-child {
+  border-bottom: none;
+}
+
+.couponInfo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.couponInfo strong {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.couponActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.expDate {
+  font-size: 0.8rem;
+  color: var(--haven-gold);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.checkbox span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--haven-forest);
+}
+
+.groceryItem.checked span {
+  text-decoration: line-through;
+  color: var(--haven-text-muted);
+}
+
+.qty {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.deleteBtn {
+  color: var(--haven-text-muted);
+  font-size: 1.2rem;
+  padding: 0 0.25rem;
+  opacity: 0.5;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  opacity: 1;
+  color: #c45c4a;
+}
+
+.photoBtn {
+  min-height: 52px;
+  font-size: 1.05rem;
+}
+
+.reviewBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.reviewPreview {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: var(--haven-text);
+}
+
+.reviewPreview strong {
+  color: var(--haven-forest);
+}
+
+.reviewNote {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--haven-gold);
+}
+
+.reviewDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.reviewActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.reviewActions button {
+  min-height: 48px;
+}
+
+@media (max-width: 767px) {
+  .headerStats {
+    gap: 0.5rem 1rem;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .topActions .photoBtn {
+    flex: 1 1 100%;
+    min-height: 56px;
+    font-size: 1.1rem;
+  }
+
+  .reviewActions {
+    flex-direction: column;
+  }
+
+  .reviewActions button {
+    width: 100%;
+    min-height: 52px;
+  }
+}
+
+.headerStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  max-width: 100%;
+  min-width: 0;
+}
+
+.headerStats strong {
+  color: var(--haven-forest);
+  font-family: var(--font-serif);
+  margin-left: 0.25rem;
+}
+
+.recGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.recGrid h4 {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.recBuy h4 { color: #4a6741; }
+.recWait h4 { color: #c4a35a; }
+.recSkip h4 { color: #c45c4a; }
+
+.recGrid p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.mealUnlock {
+  font-size: 0.9rem;
+  color: var(--haven-forest);
+  margin: 0.5rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--haven-border);
+}
+
+.opportunityList {
+  margin-top: 1rem;
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--haven-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.opportunityList ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 1.6;
+}
+
+.bestDecision {
+  margin: 1rem 0 0;
+  font-weight: 500;
+  color: var(--haven-forest);
+}
+
+.suggestionList {
+  margin: 0;
+  padding-left: 1.25rem;
+  line-height: 1.6;
+}
+
+.tripBlock {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.tripBlock:last-child {
+  border-bottom: none;
+}
+
+.tripMeta {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 0.75rem;
+}
+
+.tripStore {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tripStore ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.tripTotal {
+  font-weight: 600;
+  color: var(--haven-forest);
+  margin: 0.5rem 0 0;
+}
+
+.priceList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.priceList li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  font-size: 0.95rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.priceList li strong {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.priceDate {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+  margin-left: auto;
+}
+
+.priceStat {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  padding: 0.35rem 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.oppList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.oppList li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.oppList li strong {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.oppList p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+}
+
+.oppSavings {
+  font-size: 0.8rem;
+  color: var(--haven-gold);
+  font-weight: 600;
+}
+
+.lessonModule {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 0.35rem;
+}
+
+.lessonTitle {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--haven-forest);
+  margin: 0 0 0.5rem;
+}
+
+.lessonBody {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--haven-text);
+  margin: 0 0 0.75rem;
+}
+
+.lessonAction,
+.fullSchoolLink {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  text-decoration: none;
+}
+
+.lessonAction:hover,
+.fullSchoolLink:hover {
+  text-decoration: underline;
+}
+
+.playbookList,
+.moduleList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.playbookList li,
+.moduleList li {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--haven-border);
+  line-height: 1.45;
+}
+
+.moduleSub {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--haven-text-muted);
+  margin-top: 0.15rem;
+}
+
+.fullSchoolLink {
+  margin-top: 0.85rem;
+}

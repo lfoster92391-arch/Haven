@@ -17,6 +17,14 @@
   line-height: 1.4;
 }
 
+.whisper {
+  margin: 0;
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--haven-text-muted, #7a746c);
+}
+
 .intro {
   color: var(--haven-text-muted);
   font-size: 0.95rem;

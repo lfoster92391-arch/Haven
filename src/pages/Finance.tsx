@@ -651,18 +651,17 @@ export function Finance() {
 
   return (
     <div className={listStyles.page}>
-      <PageHeader
-        icon="💰"
-        title={beta ? 'Money' : 'Financial Intelligence'}
-        subtitle={
-          beta
-            ? 'Where is your money going?'
-            : 'Where can you save money? Calm, executive insight — no bank connection required'
-        }
-      />
+      {/* Beta: MoneyAssistantHero greets — skip duplicate page chrome */}
+      {!beta && (
+        <PageHeader
+          icon="💰"
+          title="Financial Intelligence"
+          subtitle="Where can you save money? Calm, executive insight — no bank connection required"
+        />
+      )}
 
       {beta && (
-        <p className={listStyles.alertBanner} role="status" style={{ opacity: 0.9 }}>
+        <p className={styles.whisper} role="status">
           {BETA_BANNER_COPY}
         </p>
       )}

@@ -394,34 +394,68 @@ export function Coupons() {
 
   return (
     <div className={styles.page}>
-      <PageHeader
-        icon="🌿"
-        title="Savings"
-        subtitle={
-          tab === 'overview'
-            ? 'What would I do if I were running your house today?'
-            : undefined
-        }
-      />
+      {/* Beta overview: ShoppingBriefHero greets — skip cold page chrome */}
+      {!(beta && tab === 'overview') && (
+        <PageHeader
+          title="Savings"
+          subtitle={
+            tab === 'overview'
+              ? 'What would I do if I were running your house today?'
+              : tab === 'trip'
+                ? 'What’s worth buying today?'
+                : tab === 'smart-cart'
+                  ? 'What should go on the list?'
+                  : 'Where can you save a little?'
+          }
+        />
+      )}
 
       {beta && (
-        <p className={styles.schoolNote} role="status">
+        <p className={styles.whisper} role="status">
           {BETA_BANNER_COPY}
         </p>
       )}
 
-      <div style={{ marginBottom: '0.85rem' }}>
-        <Button
-          variant="secondary"
-          onClick={() =>
-            openAskHaven({
-              hint: 'You opened me from Savings — ask where you can save this week, buy/wait/skip, or coupon stacks.',
-            })
+      {/* Beta overview: lead with morning briefing so first viewport feels like Home */}
+      {beta && tab === 'overview' && shoppingBrief && (
+        <ShoppingIntelligenceView
+          brief={shoppingBrief}
+          displayName={displayName}
+          tab="overview"
+          onOpenScanner={() => openScanner('coupon')}
+        />
+      )}
+      {beta && tab === 'overview' && !shoppingBrief && hbiSnapshot && (
+        <SavingsCommandCenter
+          displayName={displayName}
+          hbiSnapshot={hbiSnapshot}
+          activeCoupons={activeCoupons}
+          onSwitchTab={(t) =>
+            switchTab(
+              t === 'shopping'
+                ? 'trip'
+                : t === 'deals' || t === 'coupons'
+                  ? 'hidden-savings'
+                  : (t as SavingsTab),
+            )
           }
-        >
-          Ask Haven where to save
-        </Button>
-      </div>
+        />
+      )}
+
+      {!beta && (
+        <div style={{ marginBottom: '0.85rem' }}>
+          <Button
+            variant="secondary"
+            onClick={() =>
+              openAskHaven({
+                hint: 'You opened me from Savings — ask where you can save this week, buy/wait/skip, or coupon stacks.',
+              })
+            }
+          >
+            Ask Haven where to save
+          </Button>
+        </div>
+      )}
 
       {!beta && tab !== 'overview' && tab !== 'learn' && tab !== 'hidden-savings' && (
         <p className={styles.schoolNote}>
@@ -429,33 +463,54 @@ export function Coupons() {
         </p>
       )}
 
-      <div className={styles.topActions}>
-        <Button onClick={() => openScanner('coupon')}>📷 Scan Barcode</Button>
-        <Link to="/scan?mode=product" style={{ fontSize: '0.9rem', alignSelf: 'center' }}>📷 Haven Vision</Link>
-        {uncheckedList.length > 0 && (
-          <>
-            <Button variant="secondary" onClick={() => setShowShoppingMode(true)}>
-              🛒 Start Shopping
-            </Button>
-            <Button variant="secondary" onClick={() => setShowVisionShopping(true)}>
-              📷 Shopping Mode
-            </Button>
-          </>
-        )}
-        <ActionMenu
-          label="More"
-          items={[
-            { label: 'Take Photo', icon: '📸', onClick: () => openScanner('coupon-photo') },
-            { label: 'Add Coupon', icon: '🏷️', onClick: () => { setShowCouponForm(true); switchTab('hidden-savings') } },
-            { label: 'Grocery Item', icon: '🛒', onClick: () => setShowGroceryForm(true) },
-            { label: lookingUp ? 'Searching…' : 'Find Online Deals', icon: '🌐', onClick: findOnlineDeals },
-          ]}
-        />
-      </div>
+      {!(beta && tab === 'overview') && (
+        <div className={styles.topActions}>
+          <Button onClick={() => openScanner('coupon')}>Scan a coupon</Button>
+          <Link to="/scan?mode=product" className={styles.quietLink}>
+            Haven Vision
+          </Link>
+          {uncheckedList.length > 0 && (
+            <>
+              <Button variant="secondary" onClick={() => setShowShoppingMode(true)}>
+                Start shopping
+              </Button>
+              {!beta && (
+                <Button variant="secondary" onClick={() => setShowVisionShopping(true)}>
+                  Shopping Mode
+                </Button>
+              )}
+            </>
+          )}
+          <ActionMenu
+            label="More"
+            items={[
+              { label: 'Take Photo', icon: '📸', onClick: () => openScanner('coupon-photo') },
+              { label: 'Add Coupon', icon: '🏷️', onClick: () => { setShowCouponForm(true); switchTab('hidden-savings') } },
+              { label: 'Grocery Item', icon: '🛒', onClick: () => setShowGroceryForm(true) },
+              { label: lookingUp ? 'Searching…' : 'Find Online Deals', icon: '🌐', onClick: findOnlineDeals },
+            ]}
+          />
+        </div>
+      )}
 
-      <p className={styles.schoolNote} role="note">
-        A quiet tip: clear grocery barcodes and flat coupon codes work best — wrinkled packs are trickier.
-      </p>
+      {beta && tab === 'overview' && (
+        <div className={styles.topActionsQuiet}>
+          <Button size="sm" variant="secondary" onClick={() => openScanner('coupon')}>
+            Scan a coupon
+          </Button>
+          {uncheckedList.length > 0 && (
+            <Button size="sm" variant="secondary" onClick={() => setShowShoppingMode(true)}>
+              Start shopping
+            </Button>
+          )}
+        </div>
+      )}
+
+      {!beta && (
+        <p className={styles.schoolNote} role="note">
+          A quiet tip: clear grocery barcodes and flat coupon codes work best — wrinkled packs are trickier.
+        </p>
+      )}
 
       {!isOnline() && (
         <div className={styles.offlineNote}>
@@ -496,7 +551,7 @@ export function Coupons() {
         tabActiveClassName={styles.tabActive}
       />
 
-      {tab === 'overview' && shoppingBrief && (
+      {!beta && tab === 'overview' && shoppingBrief && (
         <ShoppingIntelligenceView
           brief={shoppingBrief}
           displayName={displayName}
@@ -505,7 +560,7 @@ export function Coupons() {
         />
       )}
 
-      {tab === 'overview' && !shoppingBrief && hbiSnapshot && (
+      {!beta && tab === 'overview' && !shoppingBrief && hbiSnapshot && (
         <SavingsCommandCenter
           displayName={displayName}
           hbiSnapshot={hbiSnapshot}

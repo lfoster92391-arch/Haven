@@ -162,9 +162,12 @@ export function Account() {
   return (
     <div className={listStyles.page}>
       <PageHeader
-        icon="🔐"
-        title="Account & Sync"
-        subtitle={beta ? 'Sign in to sync — optional, whenever you’re ready' : 'Optional — Haven works fully without signing in'}
+        title={beta ? 'You’re home here too' : 'Account & Sync'}
+        subtitle={
+          beta
+            ? 'Sign in when you’re ready — Haven already works for you offline.'
+            : 'Optional — Haven works fully without signing in'
+        }
       />
 
       <aside className={styles.betaBanner} aria-label="Beta pricing">

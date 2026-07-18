@@ -10,13 +10,16 @@ export function DecisionCenter() {
 
   return (
     <div className={styles.page}>
-      <PageHeader
-        icon="🌿"
-        title="Life"
-        subtitle="How can I make today easier?"
-      />
+      {/* Beta: TodayHero greets — skip duplicate page chrome */}
+      {!beta && (
+        <PageHeader
+          icon="🌿"
+          title="Life"
+          subtitle="How can I make today easier?"
+        />
+      )}
       {beta && (
-        <p className={styles.betaBanner} role="status">
+        <p className={styles.whisper} role="status">
           {BETA_BANNER_COPY}
         </p>
       )}

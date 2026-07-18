@@ -712,14 +712,17 @@ export function Kitchen({ mode = 'kitchen' }: { mode?: 'kitchen' | 'pantry' }) {
 
   return (
     <div className={listStyles.page}>
-      <PageHeader
-        icon={isPantryMode ? '🌿' : '🍳'}
-        title={beta ? 'Kitchen' : isPantryMode ? 'Kitchen Command Center' : 'Kitchen'}
-        subtitle={beta ? 'What should I cook?' : isPantryMode ? 'What do I have?' : 'What should I cook?'}
-      />
+      {/* Beta: KitchenAssistantHero greets — skip duplicate page chrome */}
+      {!beta && (
+        <PageHeader
+          icon={isPantryMode ? '🌿' : '🍳'}
+          title={isPantryMode ? 'Kitchen Command Center' : 'Kitchen'}
+          subtitle={isPantryMode ? 'What do I have?' : 'What should I cook?'}
+        />
+      )}
 
       {beta && (
-        <p className={listStyles.alertBanner} role="status" style={{ opacity: 0.9 }}>
+        <p className={styles.whisper} role="status">
           {BETA_BANNER_COPY}
         </p>
       )}

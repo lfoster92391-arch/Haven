@@ -1,0 +1,330 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--haven-warm-white);
+  border-right: 1px solid var(--haven-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  padding-top: env(safe-area-inset-top, 0);
+  padding-left: env(safe-area-inset-left, 0);
+}
+
+.brand {
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.brandText {
+  flex: 1;
+}
+
+.brandName {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: 1.45rem;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--haven-forest);
+  line-height: 1.2;
+}
+
+.tagline {
+  font-size: 0.75rem;
+  color: var(--haven-earth);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  font-style: italic;
+  margin-top: 2px;
+}
+
+.nav {
+  flex: 1;
+  padding: 0.75rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-radius: var(--haven-radius);
+  color: var(--haven-text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background: rgba(74, 103, 65, 0.06);
+  color: var(--haven-forest);
+}
+
+.navItem:active {
+  background: rgba(74, 103, 65, 0.14);
+  transform: scale(0.98);
+  transition: transform 0.05s ease, background 0.05s ease;
+}
+
+.navItem.active {
+  background: rgba(74, 103, 65, 0.1);
+  color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.navIcon {
+  font-size: 1.1rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.navLabel {
+  flex: 1;
+}
+
+.navLabelShort {
+  display: none;
+}
+
+.sidebarFooter {
+  padding: 1rem 1.25rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+  border-top: 1px solid var(--haven-border);
+}
+
+.visionLink {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--haven-sage);
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  transition: color 0.15s;
+}
+
+.visionLink:hover {
+  color: var(--haven-forest);
+}
+
+.offlineBadge {
+  font-size: 0.75rem;
+  color: var(--haven-sage);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.main {
+  flex: 1;
+  margin-left: 260px;
+  --main-pad-bottom: 2rem;
+  padding: 2rem clamp(1rem, 3vw, 2.5rem);
+  padding-bottom: calc(var(--main-pad-bottom) + env(safe-area-inset-bottom, 0));
+  padding-right: calc(clamp(1rem, 3vw, 2.5rem) + env(safe-area-inset-right, 0));
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.withScanFab .main {
+  padding-bottom: calc(var(--main-pad-bottom) + var(--haven-fab-stack) + env(safe-area-inset-bottom, 0));
+}
+
+.main > * {
+  width: 100%;
+  max-width: var(--haven-content-max, 1200px);
+  min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tablet portrait & small landscape — keep sidebar, tune spacing */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .main {
+    margin-left: 240px;
+    --main-pad-bottom: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    padding-bottom: calc(var(--main-pad-bottom) + env(safe-area-inset-bottom, 0));
+    padding-right: calc(1.75rem + env(safe-area-inset-right, 0));
+  }
+
+  .brand {
+    padding: 1.25rem 1rem;
+  }
+
+  .navItem {
+    padding: 0.55rem 0.85rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Phone only — horizontal icon nav (not tablets at 768px+) */
+@media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: auto;
+    height: auto;
+    z-index: 200;
+    border-right: none;
+    border-bottom: 1px solid var(--haven-border);
+    box-shadow: 0 2px 12px rgba(74, 103, 65, 0.08);
+    padding-left: 0;
+    padding-top: env(safe-area-inset-top, 0);
+  }
+
+  .brand {
+    padding: 0.65rem 1rem;
+    border-bottom: none;
+  }
+
+  .logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brandName {
+    font-size: 1.05rem;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
+  }
+
+  .nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 0.45rem;
+    padding: 0 0.75rem 0.7rem;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+  }
+
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navItem {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0;
+    min-width: 4.1rem;
+    scroll-snap-align: start;
+    background: transparent;
+  }
+
+  .navItem:hover {
+    background: transparent;
+  }
+
+  .navItem.active {
+    background: transparent;
+  }
+
+  .navIcon {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    border-radius: 14px;
+    background: white;
+    border: 1px solid var(--haven-border);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .navItem.active .navIcon {
+    background: rgba(74, 103, 65, 0.12);
+    border-color: var(--haven-forest);
+    box-shadow: 0 2px 8px rgba(74, 103, 65, 0.15);
+  }
+
+  .navLabel {
+    display: none;
+  }
+
+  .navLabelShort {
+    display: block;
+    flex: none;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--haven-text-muted);
+    text-align: center;
+    line-height: 1.15;
+    max-width: 4.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navItem.active .navLabelShort {
+    color: var(--haven-forest);
+    font-weight: 600;
+  }
+
+  .sidebarFooter {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+    --main-pad-bottom: 1rem;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: calc(var(--main-pad-bottom) + env(safe-area-inset-bottom, 0));
+    padding-right: calc(1rem + env(safe-area-inset-right, 0));
+  }
+}
