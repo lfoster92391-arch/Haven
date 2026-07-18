@@ -1,0 +1,1877 @@
+.healthCard {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--haven-warm-white) 0%, #eef3ea 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.healthScore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem;
+  border: 3px solid;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  justify-content: center;
+}
+
+.scoreValue {
+  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.scoreLabel {
+  font-size: 0.65rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.scoreStatus {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.healthStats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.healthStats div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.healthStats strong {
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  color: var(--haven-forest);
+}
+
+.healthStats span {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: var(--dense-gap, 1rem);
+  border-bottom: 1px solid var(--haven-border);
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.tab {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.8125rem;
+  color: var(--haven-text-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  min-height: 44px;
+}
+
+.tab:hover { color: var(--haven-forest); }
+
+.tabActive {
+  color: var(--haven-forest);
+  border-bottom-color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.budgetList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.budgetRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.budgetHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.budgetAmounts {
+  color: var(--haven-text-muted);
+  font-size: 0.85rem;
+}
+
+.budgetBar {
+  height: 8px;
+  background: var(--haven-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.budgetFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.budgetFill.good { background: var(--haven-sage); }
+.budgetFill.warning { background: var(--haven-gold); }
+.budgetFill.over { background: #c45c4a; }
+
+.budgetCard.good { }
+.budgetCard.warning { }
+.budgetCard.over { }
+
+.budgetCard {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.budgetCard:last-child { border-bottom: none; }
+
+.budgetCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.budgetCardHeader h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.overBudget {
+  color: #c45c4a;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.budgetNumbers {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.spendingChart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.chartRow {
+  display: grid;
+  grid-template-columns: 100px 1fr 70px;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.chartLabel {
+  font-size: 0.85rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chartBar {
+  height: 20px;
+  background: var(--haven-border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.chartFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--haven-sage), var(--haven-forest));
+  border-radius: 4px;
+}
+
+.chartValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.impulseCheck {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+}
+
+.impulseTag {
+  font-size: 0.65rem;
+  background: rgba(196, 92, 74, 0.15);
+  color: #a04030;
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+}
+
+.pausedTag {
+  font-size: 0.65rem;
+  background: rgba(74, 103, 65, 0.15);
+  color: var(--haven-forest);
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: white;
+  border-radius: var(--haven-radius-lg);
+  padding: 2rem;
+  max-width: 440px;
+  text-align: center;
+}
+
+.modal h3 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.impulseQuestion {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--haven-forest);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.impulseSub {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+.modalActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.coachSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.coachLead {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--haven-text-muted);
+  background: rgba(74, 103, 65, 0.05);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+}
+
+.schoolLink {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(196, 163, 90, 0.15) 0%, rgba(74, 103, 65, 0.08) 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+
+.schoolLink:hover {
+  border-color: var(--haven-sage);
+}
+
+.schoolLink span:first-child {
+  font-size: 1.5rem;
+}
+
+.schoolLink strong {
+  display: block;
+  color: var(--haven-forest);
+  margin-bottom: 0.2rem;
+}
+
+.schoolLink small {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+  line-height: 1.4;
+}
+
+.schoolLink span:last-child {
+  margin-left: auto;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.insightCard {
+  padding: 1.25rem;
+  border-radius: var(--haven-radius-lg);
+  border-left: 4px solid var(--haven-sage);
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-left-width: 4px;
+}
+
+.insightCard h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.insightCard p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--haven-text-muted);
+}
+
+.insightCard.lesson { border-left-color: var(--haven-forest); background: rgba(74, 103, 65, 0.04); }
+.insightCard.warning { border-left-color: var(--haven-gold); }
+.insightCard.celebration { border-left-color: var(--haven-sage); background: rgba(138, 154, 123, 0.08); }
+.insightCard.impulse { border-left-color: #c45c4a; }
+.receiptTag {
+  font-size: 0.65rem;
+  background: rgba(74, 103, 65, 0.15);
+  color: var(--haven-forest);
+  padding: 1px 6px;
+  border-radius: 8px;
+  margin-left: 0.5rem;
+}
+
+.watchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.noBankBanner {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(74, 103, 65, 0.08) 0%, rgba(138, 154, 123, 0.1) 100%);
+  border: 1px solid var(--haven-sage);
+  border-radius: var(--haven-radius-lg);
+  font-size: 0.9rem;
+  color: var(--haven-forest);
+  line-height: 1.5;
+}
+
+.paceCard {
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+}
+
+.paceTitle {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.paceMessage {
+  margin: 0 0 1.25rem;
+  color: var(--haven-text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.paceStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+.paceValue {
+  display: block;
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.paceLabel {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.trendMessage {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--haven-text);
+}
+
+.compareRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.compareBox {
+  padding: 1rem;
+  background: var(--haven-warm-white);
+  border-radius: var(--haven-radius);
+  text-align: center;
+}
+
+.compareLabel {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.compareValue {
+  font-size: 1.35rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.compareNote {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  margin-top: 0.25rem;
+}
+
+.billNotes {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.billsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dueHero {
+  margin-bottom: 1rem;
+  padding: 1.15rem 1.25rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+}
+
+.dueHeroMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dueHeroLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--haven-text-muted);
+}
+
+.dueHeroAmount {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--haven-forest);
+}
+
+.dueHeroAlert {
+  color: #c45c4a;
+}
+
+.dueHeroHint {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+}
+
+.dueHeroOverdue {
+  margin: 0.75rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--haven-border);
+  font-size: 0.85rem;
+  color: #a04030;
+}
+
+@media (max-width: 640px) {
+  .dueHero {
+    padding: 1rem 1.1rem;
+  }
+
+  .dueHeroAmount {
+    font-size: 1.75rem;
+  }
+
+  .billItem {
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .billActions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+.billActions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.billsSummary {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.billsSummaryBox {
+  flex: 1;
+  min-width: 120px;
+  padding: 1rem 1.25rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  text-align: center;
+}
+
+.billsSummaryAlert {
+  border-color: #c45c4a;
+  background: rgba(196, 92, 74, 0.06);
+}
+
+.billsSummaryValue {
+  display: block;
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.billsSummaryAlert .billsSummaryValue {
+  color: #c45c4a;
+}
+
+.billsSummaryLabel {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.hiddenFileInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+}
+
+.csvHelp {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.csvImportIntro {
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem;
+}
+
+.csvImportWarn {
+  color: #a04030;
+}
+
+.csvImportErrors {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  font-size: 0.85rem;
+  color: #a04030;
+}
+
+.csvPreviewList {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.csvPreviewItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0.75rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+}
+
+.csvPreviewName {
+  font-weight: 600;
+}
+
+.csvPreviewMeta {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.csvImportMore {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 1rem;
+}
+
+.billList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.billItem {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  background: white;
+}
+
+.billOverdue {
+  border-color: #c45c4a;
+  background: rgba(196, 92, 74, 0.04);
+}
+
+.billPaid {
+  opacity: 0.65;
+}
+
+.billCheck {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  flex: 1;
+  cursor: pointer;
+}
+
+.billInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.billName {
+  font-weight: 600;
+}
+
+.billMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.billDue {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.billDueOverdue {
+  font-size: 0.8rem;
+  color: #c45c4a;
+  font-weight: 600;
+}
+
+.billNotesText {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.billPaidMeta {
+  font-size: 0.8rem;
+  color: #4a6741;
+  font-weight: 500;
+}
+
+.markPaidBtn {
+  white-space: nowrap;
+  font-size: 0.8rem !important;
+  padding: 0.35rem 0.65rem !important;
+}
+
+.unpayBtn {
+  background: none;
+  border: none;
+  color: var(--haven-text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.25rem;
+}
+
+.unpayBtn:hover {
+  color: var(--haven-forest);
+}
+
+.billTag {
+  font-size: 0.65rem;
+  background: rgba(74, 103, 65, 0.12);
+  color: #4a6741;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  margin-left: 0.35rem;
+  font-weight: 600;
+}
+
+.billsOverviewTotals {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.billsOverviewTotals strong {
+  color: var(--haven-forest);
+}
+
+.viewBillsLink {
+  margin-top: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 500;
+}
+
+.viewBillsLink:hover {
+  text-decoration: underline;
+}
+
+.weeklyChart {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  height: 140px;
+  padding-top: 1rem;
+}
+
+.weekBar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.weekFill {
+  width: 100%;
+  max-width: 48px;
+  background: linear-gradient(180deg, var(--haven-sage), var(--haven-forest));
+  border-radius: 4px 4px 0 0;
+  min-height: 4px;
+  transition: height 0.4s ease;
+}
+
+.weekLabel {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+}
+
+.weekAmount {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.storeList {
+  list-style: none;
+}
+
+.storeItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  font-size: 0.9rem;
+}
+
+.storeItem:last-child { border-bottom: none; }
+
+.storeMeta {
+  color: var(--haven-text-muted);
+  font-size: 0.85rem;
+}
+
+.insightGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.watchInsight {
+  padding: 1.15rem;
+  border-radius: var(--haven-radius-lg);
+  border: 1px solid var(--haven-border);
+  background: white;
+}
+
+.watchInsight h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+}
+
+.watchInsight p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--haven-text-muted);
+}
+
+.watchInsight.awareness { border-left: 4px solid var(--haven-sage); }
+.watchInsight.celebration { border-left: 4px solid var(--haven-forest); background: rgba(74, 103, 65, 0.04); }
+.watchInsight.gentle { border-left: 4px solid var(--haven-gold); }
+.watchInsight.pattern { border-left: 4px solid var(--haven-sky); }
+
+.insightCard.tip { border-left-color: var(--haven-sky); }
+
+.fundKindRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.fundKindOption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.75rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  cursor: pointer;
+  background: white;
+}
+
+.fundKindOption input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fundKindOption span {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.fundKindOption small {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.fundKindActive {
+  border-color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.06);
+}
+
+.incomeTag,
+.creditTag {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.incomeTag {
+  background: rgba(74, 103, 65, 0.15);
+  color: var(--haven-forest);
+}
+
+.creditTag {
+  background: rgba(90, 130, 170, 0.15);
+  color: #4a6a85;
+}
+
+.incomeAmount {
+  color: var(--haven-forest);
+}
+
+.creditAmount {
+  color: #4a6a85;
+}
+
+/* Savings */
+.savingsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.savingsSummary {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.savingsSummaryBox {
+  flex: 1;
+  min-width: 120px;
+  padding: 1rem 1.25rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.savingsSummaryValue {
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.savingsSummaryLabel {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsOverallMeter {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, var(--haven-warm-white) 0%, #eef3ea 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+}
+
+.savingsGoalCard {
+  padding: 1.25rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+}
+
+.savingsGoalComplete {
+  border-color: var(--haven-sage);
+  background: rgba(138, 154, 123, 0.06);
+}
+
+.savingsGoalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.savingsGoalName {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-serif);
+  color: var(--haven-forest);
+}
+
+.savingsGoalDeadline {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsGoalNotes {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsMeterWrap {
+  margin-bottom: 1rem;
+}
+
+.savingsMeterLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.savingsMeterBar {
+  height: 12px;
+  background: var(--haven-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.savingsMeterFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--haven-sage), var(--haven-forest));
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.savingsMeterDone {
+  background: var(--haven-forest);
+}
+
+.savingsRemaining {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsGoalActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.savingsActionBtn {
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  background: white;
+  color: var(--haven-forest);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.savingsActionBtn:hover {
+  border-color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.04);
+}
+
+.savingsDepositList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--haven-border);
+  padding-top: 0.75rem;
+}
+
+.savingsDepositItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.35rem 0;
+  font-size: 0.85rem;
+}
+
+.savingsDepositItem small {
+  color: var(--haven-text-muted);
+}
+
+/* Dashboard cards */
+.dashboardCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.dashboardCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--space-md, 1rem);
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  text-align: center;
+  min-height: var(--stat-card-min-height, 72px);
+  justify-content: center;
+}
+
+.dashboardCardValue {
+  font-size: 1.25rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.dashboardCardLabel {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dashboardCardSub {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.dashboardCardPlaceholder {
+  opacity: 0.7;
+}
+
+/* Financial timeline */
+.timelineList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timelineItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.timelineItem:last-child {
+  border-bottom: none;
+}
+
+.timelineIcon {
+  font-size: 1.25rem;
+  width: 2rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.timelineBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.timelineLabel {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.timelineMeta {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.timelineAmounts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  flex-shrink: 0;
+}
+
+.timelineAmount {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.timelineBalance {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+}
+
+/* Purpose transfer */
+.purposeChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.purposeChip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.85rem;
+  border: 2px solid var(--haven-border);
+  border-radius: 2rem;
+  background: var(--haven-warm-white);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.purposeChip:hover {
+  border-color: var(--haven-sage);
+}
+
+.purposeChipActive {
+  border-color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.08);
+  font-weight: 500;
+}
+
+.existingGoalPick {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+/* Milestone celebration */
+.milestoneOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.milestoneCard {
+  background: linear-gradient(135deg, #eef3ea 0%, var(--haven-warm-white) 100%);
+  border: 2px solid var(--haven-forest);
+  border-radius: var(--haven-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  max-width: 320px;
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.4s ease;
+}
+
+.milestoneEmoji {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.milestoneConfetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confettiPiece {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: confettiFall 2s ease infinite;
+}
+
+.confettiPiece:nth-child(1) { left: 10%; top: -10%; }
+.confettiPiece:nth-child(2) { left: 30%; top: -5%; }
+.confettiPiece:nth-child(3) { left: 50%; top: -15%; }
+.confettiPiece:nth-child(4) { left: 70%; top: -8%; }
+.confettiPiece:nth-child(5) { left: 85%; top: -12%; }
+
+.milestoneDismiss {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  background: var(--haven-forest);
+  color: white;
+  border: none;
+  border-radius: var(--haven-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(120px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Savings vault extras */
+.moneyProtectedCard {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #eef3ea 0%, #e8f0e4 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  margin-bottom: 1rem;
+}
+
+.moneyProtectedTitle {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--haven-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.moneyProtectedValue {
+  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.moneyProtectedStats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.moneyProtectedStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.moneyProtectedStat strong {
+  font-size: 1rem;
+  color: var(--haven-forest);
+}
+
+.moneyProtectedStat span {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsAnalyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.savingsAnalyticBox {
+  padding: 0.75rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  text-align: center;
+}
+
+.savingsAnalyticValue {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.savingsAnalyticLabel {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsTimelineList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.savingsTimelineItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  font-size: 0.85rem;
+}
+
+.savingsTimelineBalance {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+}
+
+.savingsGoalIcon {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.insightCard.opportunity,
+.watchInsight.opportunity {
+  border-left-color: var(--haven-gold);
+  background: rgba(196, 163, 90, 0.06);
+}
+
+.insightCard.goal,
+.watchInsight.goal {
+  border-left-color: var(--haven-forest);
+}
+
+.insightCard.opportunity { border-left: 4px solid var(--haven-gold); }
+.insightCard.goal { border-left: 4px solid var(--haven-forest); }
+
+.insightCard.goal { border-left: 4px solid var(--haven-forest); }
+
+/* Money Opportunities */
+.opportunitiesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.opportunityScoreHeader {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #eef3ea 0%, #e8f0e4 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+}
+
+.opportunityScoreTitle {
+  margin: 0 0 1rem;
+  font-family: var(--font-serif);
+  color: var(--haven-forest);
+  font-size: 1.35rem;
+}
+
+.opportunityScoreStats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.opportunityScoreStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.opportunityScoreValue {
+  font-size: 1.75rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.opportunityScoreLabel {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.opportunityGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.opportunityGroupTitle {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--haven-forest);
+}
+
+.opportunityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.opportunityCard {
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.opportunityCard.impact_high {
+  border-left: 4px solid var(--haven-forest);
+}
+
+.opportunityCard.impact_medium {
+  border-left: 4px solid var(--haven-gold);
+}
+
+.opportunityCard.impact_low {
+  border-left: 4px solid var(--haven-sage);
+}
+
+.opportunityHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.opportunityName {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--haven-forest);
+}
+
+.opportunityCategory {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  text-transform: capitalize;
+}
+
+.opportunityImpact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.opportunityStars {
+  color: var(--haven-gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.opportunityImpactLabel {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+  font-weight: 600;
+}
+
+.opportunityFlow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.75rem;
+  background: var(--haven-warm-white);
+  border-radius: var(--haven-radius);
+}
+
+.opportunityFlowStep {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.opportunityFlowLabel {
+  font-size: 0.65rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+}
+
+.opportunityFlowValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--haven-text);
+}
+
+.opportunityFlowValue.opportunitySavings {
+  color: var(--haven-forest);
+}
+
+.opportunityFlowArrow {
+  color: var(--haven-sage);
+  font-weight: 600;
+}
+
+.opportunityCopy {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--haven-text-muted);
+}
+
+.opportunityYearly {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.opportunityYearly strong {
+  font-size: 1.25rem;
+  font-family: var(--font-serif);
+  color: var(--haven-forest);
+}
+
+.opportunityYearly span {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.opportunityGoalLink {
+  padding: 0.65rem 0.85rem;
+  background: rgba(74, 103, 65, 0.06);
+  border-radius: var(--haven-radius);
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  line-height: 1.45;
+}
+
+.opportunityActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.whatIfSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.whatIfTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--haven-forest);
+}
+
+.whatIfIntro {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  line-height: 1.5;
+}
+
+.whatIfSummary {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.whatIfSummaryBox {
+  flex: 1;
+  min-width: 100px;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--haven-warm-white) 0%, #eef3ea 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  text-align: center;
+}
+
+.whatIfSummaryValue {
+  display: block;
+  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.whatIfSummaryLabel {
+  font-size: 0.7rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+}
+
+.whatIfToggles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.whatIfToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  cursor: pointer;
+  background: white;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.whatIfToggle input {
+  flex-shrink: 0;
+}
+
+.whatIfToggleActive {
+  border-color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.04);
+}
+
+.whatIfToggleBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.whatIfToggleLabel {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.whatIfToggleDesc {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.whatIfToggleSavings {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  white-space: nowrap;
+}
+
+.applyPlanForecast {
+  padding: 0.85rem 1rem;
+  background: rgba(74, 103, 65, 0.08);
+  border-radius: var(--haven-radius);
+  font-size: 0.9rem;
+  color: var(--haven-forest);
+  margin-bottom: 1rem;
+  line-height: 1.45;
+}
+
+.applyPlanGoals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.applyPlanGoalLabel {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.applyPlanGoalOption {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  cursor: pointer;
+}
+
+.applyPlanGoalOption small {
+  margin-left: auto;
+  color: var(--haven-text-muted);
+  font-size: 0.75rem;
+}
+
+.applyPlanGoalSelected {
+  border-color: var(--haven-forest);
+  background: rgba(74, 103, 65, 0.06);
+}
+
+.activePlansList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.activePlanItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.75rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  font-size: 0.9rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.activePlanMeta {
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartRow {
+    grid-template-columns: 80px 1fr 60px;
+  }
+
+  .paceStats {
+    grid-template-columns: 1fr;
+  }
+
+  .fundKindRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .tabs {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .tab {
+    padding: 0.75rem 1rem;
+  }
+
+  .insightGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .insightGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}

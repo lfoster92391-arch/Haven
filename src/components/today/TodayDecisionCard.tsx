@@ -16,7 +16,8 @@ const SOFTWARE_REASON = /\d+%\s*confidence|priority|score/i
 
 function softWhy(decision: TodayDecision): string | undefined {
   const candidates = [decision.subtitle, ...decision.reasons].filter(
-    (line): line is string => Boolean(line?.trim()) && !SOFTWARE_REASON.test(line),
+    (line): line is string =>
+      typeof line === 'string' && Boolean(line.trim()) && !SOFTWARE_REASON.test(line),
   )
   return candidates[0]
 }
