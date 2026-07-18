@@ -1,0 +1,173 @@
+.betaBanner {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--haven-radius, 12px);
+  background: linear-gradient(
+    135deg,
+    rgba(106, 140, 98, 0.14) 0%,
+    rgba(232, 240, 228, 0.9) 55%,
+    rgba(250, 248, 242, 0.95) 100%
+  );
+  border: 1px solid rgba(106, 140, 98, 0.28);
+}
+
+.betaLead {
+  margin: 0 0 0.35rem;
+  font-family: var(--haven-font-display, Georgia, 'Times New Roman', serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--haven-forest, #2f4a2c);
+  line-height: 1.35;
+}
+
+.betaDetail {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--haven-text, #2c3228);
+  line-height: 1.45;
+}
+
+.body {
+  margin: 0 0 0.85rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--haven-text, #2c3228);
+}
+
+.muted {
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+  color: var(--haven-muted, #6a7364);
+}
+
+.syncingNote {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--haven-forest, #2f4a2c);
+}
+
+.code {
+  font-size: 0.85em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.modeTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.tab,
+.tabActive {
+  border: 1px solid var(--haven-border, #d5dccf);
+  background: transparent;
+  color: var(--haven-text, #2c3228);
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.tabActive {
+  background: var(--haven-sage, #8a9a7b);
+  border-color: var(--haven-sage, #8a9a7b);
+  color: #fff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-width: 420px;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+.hint {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--haven-muted, #6a7364);
+}
+
+.inlineLink {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: var(--haven-forest, #2f4a2c);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.statusLabel {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--haven-muted, #6a7364);
+  margin-bottom: 0.2rem;
+}
+
+.statusValue,
+.statusValueMono {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.statusValueMono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.list,
+.listMuted {
+  margin: 0 0 1rem;
+  padding-left: 1.15rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.listMuted {
+  color: var(--haven-muted, #6a7364);
+}
+
+.success {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--haven-radius, 10px);
+  background: rgba(106, 140, 98, 0.12);
+  color: var(--haven-forest, #2f4a2c);
+  font-size: 0.92rem;
+}
+
+.error {
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: var(--haven-radius, 10px);
+  background: rgba(180, 70, 60, 0.1);
+  color: #8a3028;
+  font-size: 0.92rem;
+}

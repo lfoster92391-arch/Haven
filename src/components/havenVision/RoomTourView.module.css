@@ -1,0 +1,123 @@
+.shell {
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(107, 143, 113, 0.18), transparent 55%),
+    linear-gradient(180deg, #f7f3eb 0%, #efe8dc 100%);
+  color: var(--haven-text, #2c2a26);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.close {
+  border: none;
+  background: transparent;
+  color: var(--haven-forest, #2f4f3a);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.4rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.body {
+  flex: 1;
+  padding: 0.5rem 1.25rem 2rem;
+  max-width: 28rem;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.65rem, 5vw, 2rem);
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  line-height: 1.2;
+}
+
+.lead {
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--haven-text-muted, #5c564f);
+}
+
+.rooms {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.roomBtn {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  text-align: left;
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(47, 79, 58, 0.14);
+  background: rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.roomBtn:hover {
+  border-color: rgba(47, 79, 58, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.roomBtn:active {
+  transform: scale(0.99);
+}
+
+.roomIcon {
+  font-size: 1.45rem;
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+
+.roomText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.roomLabel {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--haven-forest, #2f4f3a);
+}
+
+.roomQuestion {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.footerNote {
+  margin: 1.75rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--haven-text-muted, #7a746c);
+  text-align: center;
+}

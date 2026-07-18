@@ -1,0 +1,252 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.hero {
+  padding: 1.15rem 1.2rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(47, 79, 58, 0.12);
+  background:
+    radial-gradient(ellipse 70% 80% at 10% 0%, rgba(107, 143, 113, 0.14), transparent 55%),
+    linear-gradient(180deg, #fbf8f2 0%, #f3eee4 100%);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.headline {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  font-weight: 600;
+  color: var(--haven-forest, #2f4f3a);
+  line-height: 1.25;
+}
+
+.narrative {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--haven-text, #2c2a26);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.sentPill {
+  display: inline-flex;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.sentWarm {
+  background: rgba(74, 103, 65, 0.14);
+  color: var(--haven-forest, #2f4f3a);
+}
+
+.sentMixed {
+  background: rgba(196, 163, 90, 0.2);
+  color: #6b5420;
+}
+
+.sentCare {
+  background: rgba(138, 48, 40, 0.1);
+  color: #8a3028;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.polishBtn {
+  margin-left: auto;
+  border: 1px solid rgba(47, 79, 58, 0.25);
+  background: white;
+  color: var(--haven-forest, #2f4f3a);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  min-height: 32px;
+}
+
+.polishBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.llmNote {
+  margin: 0.55rem 0 0;
+  font-size: 0.75rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.section {
+  margin: 0;
+}
+
+.sectionTitle {
+  margin: 0 0 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.priorityList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.priorityItem {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.85rem;
+  background: white;
+  border: 1px solid var(--haven-border, #d5dccf);
+  border-radius: 0.85rem;
+}
+
+.rank {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--haven-forest, #2f4f3a);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.priorityTitle {
+  margin: 0 0 0.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--haven-text, #2c2a26);
+}
+
+.priorityWhy {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted, #6b6560);
+  line-height: 1.4;
+}
+
+.themeList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.themeItem {
+  padding: 0.65rem 0.8rem;
+  background: rgba(247, 243, 235, 0.8);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(47, 79, 58, 0.08);
+}
+
+.themeItem strong {
+  color: var(--haven-forest, #2f4f3a);
+  font-size: 0.9rem;
+}
+
+.themeCount {
+  margin-left: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.themeNote {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.split {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 720px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.quoteList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.quote {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--haven-text, #2c2a26);
+}
+
+.quoteWho {
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  color: var(--haven-text-muted, #6b6560);
+}
+
+.chipCloud {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: white;
+  border: 1px solid var(--haven-border, #d5dccf);
+  font-size: 0.78rem;
+  color: var(--haven-text, #2c2a26);
+}
+
+.chipCount {
+  font-weight: 700;
+  color: var(--haven-forest, #2f4f3a);
+  font-size: 0.72rem;
+}

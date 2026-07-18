@@ -1,7 +1,14 @@
 import { format } from 'date-fns'
 import { db, type MealLearningEntry, type MealRating } from '../db/database'
+import {
+  bumpChangeStats,
+  findPendingEvolution,
+  mergeUniqueNames,
+  type PendingEvolution,
+} from './recipeEvolution'
 
 export type { MealLearningEntry }
+export type { PendingEvolution }
 
 export type MealLearningProfile = MealLearningEntry
 
@@ -44,17 +51,21 @@ export async function saveCookLearning(params: {
   lastCookNote?: string
   addedIngredients?: string[]
   removedIngredients?: string[]
-}): Promise<void> {
+}): Promise<PendingEvolution | null> {
   const existing = await getLearningProfile(params.recipeKey)
   const now = new Date().toISOString()
+  const addedStats = bumpChangeStats(existing?.addedIngredientStats, params.addedIngredients ?? [], now)
+  const removedStats = bumpChangeStats(existing?.removedIngredientStats, params.removedIngredients ?? [], now)
   const patch: Partial<MealLearningEntry> = {
     recipeName: params.recipeName,
     updatedAt: now,
+    addedIngredientStats: addedStats,
+    removedIngredientStats: removedStats,
+    addedIngredients: mergeUniqueNames(existing?.addedIngredients, params.addedIngredients),
+    removedIngredients: mergeUniqueNames(existing?.removedIngredients, params.removedIngredients),
   }
   if (params.personalName?.trim()) patch.personalName = params.personalName.trim()
   if (params.lastCookNote !== undefined) patch.lastCookNote = params.lastCookNote.trim() || undefined
-  if (params.addedIngredients) patch.addedIngredients = params.addedIngredients
-  if (params.removedIngredients) patch.removedIngredients = params.removedIngredients
 
   if (existing?.id) {
     await db.mealLearning.update(existing.id, patch)
@@ -68,6 +79,34 @@ export async function saveCookLearning(params: {
       ...patch,
       updatedAt: now,
     })
+  }
+
+  const updated = await getLearningProfile(params.recipeKey)
+  return updated ? findPendingEvolution(updated) : null
+}
+
+export async function getRecipeLogDetail(recipeKey: string): Promise<{
+  entry: MealLearningProfile
+  avgRating: number | null
+  ratingCount: number
+  pendingEvolution: PendingEvolution | null
+} | null> {
+  const entry = await getLearningProfile(recipeKey)
+  if (!entry) return null
+  const ratings = await db.mealRatings
+    .filter(r =>
+      r.recipeName.toLowerCase() === (entry.personalName ?? entry.recipeName).toLowerCase()
+      || r.recipeName.toLowerCase() === entry.recipeName.toLowerCase(),
+    )
+    .toArray()
+  const avgRating = ratings.length
+    ? Math.round((ratings.reduce((s, r) => s + r.rating, 0) / ratings.length) * 10) / 10
+    : null
+  return {
+    entry,
+    avgRating,
+    ratingCount: ratings.length,
+    pendingEvolution: findPendingEvolution(entry),
   }
 }
 
@@ -134,6 +173,8 @@ export function learningBoost(profile: MealLearningProfile | undefined): number 
   if (profile.skipCount >= 3) boost -= 6
   const month = new Date().getMonth() + 1
   if (profile.seasonalMonth === month) boost += 5
+  if (profile.personalName) boost += 3
+  if ((profile.defaultAdditions?.length ?? 0) + (profile.defaultRemovals?.length ?? 0) > 0) boost += 5
   return boost
 }
 

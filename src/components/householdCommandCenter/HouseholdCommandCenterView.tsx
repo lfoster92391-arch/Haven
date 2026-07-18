@@ -16,6 +16,7 @@ import {
 } from './HomeVisionSections'
 import { CreateAccountCard } from './CreateAccountCard'
 import { HavenAlreadyHelpedCard } from './HavenAlreadyHelpedCard'
+import { HavenMemoriesCard } from './HavenMemoriesCard'
 import { HavenNoticedCard } from './HavenNoticedCard'
 import { CelebrateMomentsCard } from './CelebrateMomentsCard'
 import { HouseholdLearningProgress } from './HouseholdLearningProgress'
@@ -57,6 +58,8 @@ export function HouseholdCommandCenterView() {
           <ComingUpFocus items={vision.comingUp ?? []} onAskHaven={() => openAskHaven()} />
 
           <HavenAlreadyHelpedCard items={brief.alreadyHelped} />
+
+          <HavenMemoriesCard />
 
           <HavenNoticedCard
             insights={(beta ? noticedForBeta : brief.noticed).slice(0, 2)}

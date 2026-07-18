@@ -4,6 +4,7 @@ import { buildInventorySnapshot, getMissingRequired, matchRecipeIngredients } fr
 import hie from './intelligence/hie'
 import { mealEngine } from './mealEngine'
 import { recordMealCooked, saveCookLearning, updatePantryChallenge } from './mealLearning'
+import type { PendingEvolution } from './recipeEvolution'
 import { recordVillageActivity } from './villageWorldEngine'
 import { shouldOfferAddToList } from './shoppingIntelligence/shouldOfferAddToList'
 import { addToGroceryList as persistGroceryItem } from './shoppingIntelligence/groceryListService'
@@ -185,7 +186,7 @@ export async function saveMealRating(params: {
   personalName?: string
   addedIngredients?: string[]
   removedIngredients?: string[]
-}): Promise<void> {
+}): Promise<{ pendingEvolution: PendingEvolution | null }> {
   const cookedAt = new Date().toISOString()
   const displayName = params.personalName?.trim() || params.recipeName
 
@@ -199,7 +200,7 @@ export async function saveMealRating(params: {
   })
 
   const recipeKey = recipeLearningKey(params.recipeId, params.recipeName)
-  await saveCookLearning({
+  const pendingEvolution = await saveCookLearning({
     recipeKey,
     recipeName: params.recipeName,
     personalName: params.personalName,
@@ -248,6 +249,8 @@ export async function saveMealRating(params: {
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('haven:recipe-log-updated'))
   }
+
+  return { pendingEvolution }
 }
 
 export function mealContextFromPayload(

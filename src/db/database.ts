@@ -127,6 +127,14 @@ export interface InventoryEvent {
   createdAt: string
 }
 
+export interface IngredientChangeStat {
+  name: string
+  count: number
+  lastSeenAt: string
+}
+
+export type RecipeEvolutionDecision = 'accepted' | 'keep-asking' | 'declined'
+
 export interface MealLearningEntry {
   id?: number
   recipeKey: string
@@ -145,6 +153,14 @@ export interface MealLearningEntry {
   lastCookNote?: string
   addedIngredients?: string[]
   removedIngredients?: string[]
+  /** How often each addition has shown up across cooks */
+  addedIngredientStats?: IngredientChangeStat[]
+  removedIngredientStats?: IngredientChangeStat[]
+  /** Confirmed default version tweaks */
+  defaultAdditions?: string[]
+  defaultRemovals?: string[]
+  /** Per-ingredient evolution choices (keyed by lowercased ingredient) */
+  evolutionDecisions?: Record<string, RecipeEvolutionDecision>
   updatedAt: string
 }
 
@@ -1709,6 +1725,8 @@ export interface BetaFeedbackPrompt {
   submittedAt?: string
   /** Haven Founders Program welcome card acknowledged */
   foundersWelcomeSeenAt?: string
+  /** Shipped-feature thank-yous already shown (feature ids) */
+  rememberedThanksSeenIds?: string[]
   updatedAt: string
 }
 
@@ -1721,14 +1739,21 @@ export type BetaNextBuild =
   | 'packages'
   | 'other'
 
+/** Help Haven Learn intents — Vision V2 flywheel */
+export type HelpHavenIntent = 'love' | 'idea' | 'bug' | 'confused' | 'wish' | 'voice'
+
 export interface BetaFeedbackResponse {
   id?: number
   rating: number
   recommend: BetaRecommend
+  intent?: HelpHavenIntent
+  pagePath?: string
   workingWell?: string
   confusingBroken?: string
   buildNext?: BetaNextBuild | string
   buildNextNote?: string
+  /** True when the note came (at least partly) from Tell Haven voice */
+  fromVoice?: boolean
   email?: string
   userId?: string
   createdAt: string

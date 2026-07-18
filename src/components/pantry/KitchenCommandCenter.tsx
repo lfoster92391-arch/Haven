@@ -14,6 +14,7 @@ import { MorningKitchenBrief } from './MorningKitchenBrief'
 import { KitchenHealthHero } from './KitchenHealthHero'
 import { TonightsMatches } from './TonightsMatches'
 import { RecipeLog } from './RecipeLog'
+import { ShowHavenKitchen } from './ShowHavenKitchen'
 import { StorageSummary } from './StorageSummary'
 import { PantryInsightCard } from './PantryInsightCard'
 import styles from './KitchenCommandCenter.module.css'
@@ -147,7 +148,7 @@ export function KitchenCommandCenter({
 
   const quickActionItems = [
     { label: 'Add Item', icon: '➕', onClick: onAddItem },
-    { label: 'Scan Barcode', icon: '📷', onClick: onScan },
+    { label: 'Show Haven', icon: '📷', onClick: onScan },
     { label: 'Import Receipt', icon: '🧾', onClick: onImportReceipt },
     { label: 'Move Item', icon: '📦', onClick: onMoveItem },
     { label: 'Create Shopping List', icon: '➕', onClick: onCreateShoppingList },
@@ -180,6 +181,8 @@ export function KitchenCommandCenter({
       />
 
       <RecipeLog />
+
+      <ShowHavenKitchen />
 
       {!beta && <StorageSummary areas={storageAreas} onSelectArea={onExploreArea} />}
 

@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { RecipeFeedbackTag } from '../../db/database'
 import {
   addMissingToShoppingList,
   finalizeMealCooked,
   letsMakeIt,
+  recipeLearningKey,
   saveMealRating,
   type MealRecommendationContext,
 } from '../../lib/mealRecommendationActions'
+import { getLearningProfile } from '../../lib/mealLearning'
+import {
+  formatYourVersionHint,
+  resolveEvolutionPrompt,
+  type PendingEvolution,
+} from '../../lib/recipeEvolution'
 import styles from './MealRecommendationActions.module.css'
 
-type Phase = 'actions' | 'confirm' | 'learning' | 'name' | 'done'
+type Phase = 'actions' | 'confirm' | 'learning' | 'name' | 'evolution' | 'done'
 
 const CHANGE_CHIPS: { id: RecipeFeedbackTag; label: string }[] = [
   { id: 'added-ingredients', label: 'Added something' },
@@ -19,6 +26,14 @@ const CHANGE_CHIPS: { id: RecipeFeedbackTag; label: string }[] = [
   { id: 'turned-out-great', label: 'Turned out great' },
   { id: 'needs-improvement', label: 'Needs work' },
 ]
+
+function parseIngredientList(raw: string): string[] {
+  return raw
+    .split(/,|&|\band\b/i)
+    .map(s => s.trim())
+    .filter(Boolean)
+    .slice(0, 6)
+}
 
 export interface MealRecommendationActionsProps {
   context: MealRecommendationContext
@@ -34,7 +49,7 @@ export function MealRecommendationActions({
   onComplete,
 }: MealRecommendationActionsProps) {
   const navigate = useNavigate()
-  const [busy, setBusy] = useState<'make' | 'rate' | 'list' | null>(null)
+  const [busy, setBusy] = useState<'make' | 'rate' | 'list' | 'evolve' | null>(null)
   const [phase, setPhase] = useState<Phase>('actions')
   const [missing, setMissing] = useState<string[]>([])
   const [statusMsg, setStatusMsg] = useState<string | null>(null)
@@ -42,7 +57,25 @@ export function MealRecommendationActions({
   const [selectedTags, setSelectedTags] = useState<RecipeFeedbackTag[]>([])
   const [note, setNote] = useState('')
   const [personalName, setPersonalName] = useState('')
+  const [addedText, setAddedText] = useState('')
+  const [removedText, setRemovedText] = useState('')
   const [kitchenMsg, setKitchenMsg] = useState<string | null>(null)
+  const [versionHint, setVersionHint] = useState<string | null>(null)
+  const [pendingEvolution, setPendingEvolution] = useState<PendingEvolution | null>(null)
+  const [doneLabel, setDoneLabel] = useState(context.recipeName)
+
+  useEffect(() => {
+    let cancelled = false
+    const key = recipeLearningKey(context.recipeId, context.recipeName)
+    void getLearningProfile(key).then(profile => {
+      if (cancelled) return
+      setVersionHint(formatYourVersionHint(profile))
+      if (profile?.personalName) setPersonalName(profile.personalName)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [context.recipeId, context.recipeName])
 
   async function handleLetsMakeIt() {
     setBusy('make')
@@ -51,12 +84,12 @@ export function MealRecommendationActions({
       const result = await letsMakeIt(context)
       setMissing(result.missingIngredients)
       const parts: string[] = []
-      if (result.mealPlanned) parts.push("Added to tonight's plan")
+      if (result.mealPlanned) parts.push("I'll keep this for tonight")
       if (result.missingIngredients.length === 0) {
-        parts.push('All ingredients on hand')
+        parts.push('Looks like you have what you need')
       } else {
         parts.push(
-          `${result.missingIngredients.length} item${result.missingIngredients.length !== 1 ? 's' : ''} missing`,
+          `${result.missingIngredients.length} thing${result.missingIngredients.length !== 1 ? 's' : ''} still to gather`,
         )
       }
       setStatusMsg(parts.join(' · '))
@@ -66,7 +99,7 @@ export function MealRecommendationActions({
         navigate(result.navigateTo)
       }
     } catch (err) {
-      setStatusMsg(err instanceof Error ? err.message : 'Could not plan meal — try again')
+      setStatusMsg(err instanceof Error ? err.message : "Something didn't go quite as planned")
     } finally {
       setBusy(null)
     }
@@ -79,11 +112,11 @@ export function MealRecommendationActions({
       const added = await addMissingToShoppingList(missing)
       setStatusMsg(
         added.length > 0
-          ? `Added ${added.join(', ')} to shopping list`
-          : 'Items already on your list',
+          ? `I'll remember ${added.join(', ')} for your list`
+          : 'Those are already on your list',
       )
     } catch (err) {
-      setStatusMsg(err instanceof Error ? err.message : 'Could not add to list')
+      setStatusMsg(err instanceof Error ? err.message : "Couldn't update your list")
     } finally {
       setBusy(null)
     }
@@ -109,14 +142,16 @@ export function MealRecommendationActions({
       })
       if (result.kitchenAdjusted > 0) {
         setKitchenMsg(
-          `Updated kitchen for ${result.kitchenAdjusted} item${result.kitchenAdjusted !== 1 ? 's' : ''} (estimate)`,
+          result.kitchenAdjusted === 1
+            ? "I've gently updated your kitchen for one ingredient (estimate)."
+            : `I've gently updated your kitchen for ${result.kitchenAdjusted} ingredients (estimate).`,
         )
       } else {
         setKitchenMsg(null)
       }
       setPhase('learning')
     } catch (err) {
-      setStatusMsg(err instanceof Error ? err.message : 'Could not log meal')
+      setStatusMsg(err instanceof Error ? err.message : "Couldn't log that meal")
       setPhase('actions')
     } finally {
       setBusy(null)
@@ -133,9 +168,17 @@ export function MealRecommendationActions({
     setSelectedRating(rating)
     setBusy('rate')
     try {
-      const added = selectedTags.includes('added-ingredients') ? ['(custom)'] : undefined
-      const removed = selectedTags.includes('removed-ingredients') ? ['(custom)'] : undefined
-      await saveMealRating({
+      const added = selectedTags.includes('added-ingredients')
+        ? parseIngredientList(addedText).length > 0
+          ? parseIngredientList(addedText)
+          : ['(custom)']
+        : undefined
+      const removed = selectedTags.includes('removed-ingredients')
+        ? parseIngredientList(removedText).length > 0
+          ? parseIngredientList(removedText)
+          : ['(custom)']
+        : undefined
+      const { pendingEvolution: pending } = await saveMealRating({
         recipeId: context.recipeId,
         recipeName: context.recipeName,
         rating,
@@ -148,15 +191,21 @@ export function MealRecommendationActions({
         removedIngredients: removed,
       })
       const label = withName?.trim() || personalName.trim() || context.recipeName
+      setDoneLabel(label)
+      if (pending) {
+        setPendingEvolution(pending)
+        setPhase('evolution')
+        return
+      }
       setPhase('done')
       setStatusMsg(
         kitchenMsg
-          ? `Saved ${label} · ${kitchenMsg}`
-          : `Haven will remember how ${label} went`,
+          ? `I'll remember how ${label} went. ${kitchenMsg}`
+          : `I'll remember how ${label} went.`,
       )
       onComplete?.()
     } catch (err) {
-      setStatusMsg(err instanceof Error ? err.message : 'Could not save')
+      setStatusMsg(err instanceof Error ? err.message : "Couldn't save that")
     } finally {
       setBusy(null)
     }
@@ -179,8 +228,8 @@ export function MealRecommendationActions({
     setPhase('done')
     setStatusMsg(
       kitchenMsg
-        ? `Marked cooked · ${kitchenMsg}`
-        : `Marked ${context.recipeName} as cooked`,
+        ? `Marked cooked. ${kitchenMsg}`
+        : `I'll remember you cooked ${context.recipeName}.`,
     )
     onComplete?.()
   }
@@ -193,10 +242,79 @@ export function MealRecommendationActions({
     void finishLearning(selectedRating || 4)
   }
 
+  async function handleEvolution(decision: 'accepted' | 'keep-asking' | 'declined') {
+    if (!pendingEvolution) return
+    setBusy('evolve')
+    try {
+      await resolveEvolutionPrompt({
+        recipeKey: pendingEvolution.recipeKey,
+        ingredient: pendingEvolution.ingredient,
+        kind: pendingEvolution.kind,
+        decision,
+      })
+      setPhase('done')
+      if (decision === 'accepted') {
+        setStatusMsg(
+          pendingEvolution.kind === 'add'
+            ? `I'll remember — ${doneLabel} usually includes ${pendingEvolution.ingredient}.`
+            : `I'll remember — ${doneLabel} usually skips ${pendingEvolution.ingredient}.`,
+        )
+      } else if (decision === 'keep-asking') {
+        setStatusMsg("Okay — I'll check in again next time.")
+      } else {
+        setStatusMsg("Got it — I won't keep asking about that.")
+      }
+      onComplete?.()
+    } catch {
+      setPhase('done')
+      setStatusMsg(`I'll remember how ${doneLabel} went.`)
+      onComplete?.()
+    } finally {
+      setBusy(null)
+    }
+  }
+
   if (phase === 'done') {
     return (
       <div className={`${styles.mealActions} ${compact ? styles.compact : ''}`}>
-        <p className={styles.doneMsg}>{statusMsg ?? 'Meal logged!'}</p>
+        <p className={styles.doneMsg}>{statusMsg ?? "I'll remember that."}</p>
+      </div>
+    )
+  }
+
+  if (phase === 'evolution' && pendingEvolution) {
+    return (
+      <div className={`${styles.mealActions} ${compact ? styles.compact : ''}`}>
+        <div className={styles.ratingPanel}>
+          <p className={styles.ratingTitle}>Your version is taking shape</p>
+          <p className={styles.learnHint}>{pendingEvolution.message}</p>
+          <div className={styles.btnRow}>
+            <button
+              type="button"
+              className={styles.primaryBtn}
+              onClick={() => void handleEvolution('accepted')}
+              disabled={busy !== null}
+            >
+              {busy === 'evolve' ? 'Saving…' : 'Yes, remember it'}
+            </button>
+            <button
+              type="button"
+              className={styles.secondaryBtn}
+              onClick={() => void handleEvolution('keep-asking')}
+              disabled={busy !== null}
+            >
+              Keep asking
+            </button>
+            <button
+              type="button"
+              className={styles.skipBtn}
+              onClick={() => void handleEvolution('declined')}
+              disabled={busy !== null}
+            >
+              Not for now
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -281,6 +399,28 @@ export function MealRecommendationActions({
               </button>
             ))}
           </div>
+          {selectedTags.includes('added-ingredients') && (
+            <input
+              className={styles.nameInput}
+              type="text"
+              value={addedText}
+              onChange={e => setAddedText(e.target.value)}
+              placeholder="What did you add? (e.g. mushrooms)"
+              maxLength={120}
+              aria-label="Ingredients you added"
+            />
+          )}
+          {selectedTags.includes('removed-ingredients') && (
+            <input
+              className={styles.nameInput}
+              type="text"
+              value={removedText}
+              onChange={e => setRemovedText(e.target.value)}
+              placeholder="What did you skip?"
+              maxLength={120}
+              aria-label="Ingredients you skipped"
+            />
+          )}
           <textarea
             className={styles.noteInput}
             value={note}
@@ -315,6 +455,7 @@ export function MealRecommendationActions({
 
   return (
     <div className={`${styles.mealActions} ${compact ? styles.compact : ''}`}>
+      {versionHint && <p className={styles.versionHint}>{versionHint}</p>}
       <div className={styles.btnRow}>
         <button
           type="button"
@@ -338,7 +479,7 @@ export function MealRecommendationActions({
 
       {missing.length > 0 && (
         <div className={styles.missingPanel}>
-          <p className={styles.missingTitle}>Pantry check — still need:</p>
+          <p className={styles.missingTitle}>Still to gather:</p>
           <ul className={styles.missingList}>
             {missing.slice(0, 5).map(item => (
               <li key={item}>{item}</li>

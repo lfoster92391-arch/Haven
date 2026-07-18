@@ -19,6 +19,9 @@ const HelpHavenLearnLeaf = lazy(() =>
 const FoundersWelcomeCard = lazy(() =>
   import('./FoundersWelcomeCard').then(m => ({ default: m.FoundersWelcomeCard })),
 )
+const FoundersRememberedCard = lazy(() =>
+  import('./FoundersRememberedCard').then(m => ({ default: m.FoundersRememberedCard })),
+)
 const BetaHeartbeat = lazy(() =>
   import('./BetaHeartbeat').then(m => ({ default: m.BetaHeartbeat })),
 )
@@ -105,6 +108,7 @@ export function Layout({ children }: LayoutProps) {
         {showScanFab && <ScanFab />}
         <HelpHavenLearnLeaf besideFab={showScanFab} />
         <FoundersWelcomeCard />
+        <FoundersRememberedCard />
         <BetaHeartbeat />
         <BetaFeedbackHost />
       </Suspense>
