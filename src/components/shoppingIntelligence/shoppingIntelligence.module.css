@@ -1,0 +1,475 @@
+.hero {
+  padding: 1.1rem 1.15rem 1.15rem;
+  margin-bottom: 0.85rem;
+  background:
+    linear-gradient(165deg, rgba(255, 252, 247, 0.98) 0%, rgba(236, 242, 232, 0.92) 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg, 14px);
+}
+
+.heroEyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--haven-forest);
+  font-weight: 600;
+}
+
+.heroGreeting {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  color: var(--haven-forest);
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.heroQuestion {
+  margin: 0 0 0.65rem;
+  font-size: 0.9375rem;
+  color: var(--haven-text);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.heroHeadline {
+  font-size: 1rem;
+  color: var(--haven-text);
+  margin: 0 0 0.75rem;
+  line-height: 1.45;
+}
+
+.heroBullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.heroBullets li {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  line-height: 1.45;
+  padding-left: 0.85rem;
+  position: relative;
+}
+
+.heroBullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--haven-forest);
+  opacity: 0.55;
+}
+
+.heroClosing {
+  margin: 0.85rem 0 0;
+  font-size: 0.875rem;
+  color: var(--haven-forest);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.demoNote {
+  font-size: 0.75rem;
+  color: var(--haven-text-muted);
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+
+.commandCenter {
+  background: linear-gradient(135deg, var(--haven-warm-white) 0%, #eef3ea 100%);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.ccGreeting {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--haven-forest);
+  margin: 0 0 0.5rem;
+}
+
+.ccSavings {
+  font-size: 1.1rem;
+  margin: 0 0 0.35rem;
+  color: var(--haven-text);
+}
+
+.ccSavings strong {
+  color: var(--haven-gold);
+  font-size: 1.25rem;
+}
+
+.ccDivider {
+  font-size: 0.65rem;
+  color: var(--haven-border);
+  margin: 0.35rem 0 0.65rem;
+  overflow: hidden;
+}
+
+.ccGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+}
+
+@media (min-width: 480px) {
+  .ccGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.ccStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ccLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--haven-text-muted);
+}
+
+.ccValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.tripHeader {
+  margin-bottom: 0.75rem;
+}
+
+.tripPriority {
+  font-size: 0.85rem;
+  color: var(--haven-gold);
+}
+
+.tripMeta {
+  font-size: 0.9rem;
+  margin: 0.35rem 0 0;
+  line-height: 1.5;
+}
+
+.aisleList {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.aisleSection {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--haven-border);
+  font-size: 0.9rem;
+}
+
+.aisleItems {
+  display: block;
+  color: var(--haven-text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.15rem;
+}
+
+.cartList {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.cartItem {
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.cartItemBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.65rem 0;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.cartEmoji {
+  flex-shrink: 0;
+}
+
+.cartName {
+  flex: 1;
+  font-weight: 500;
+}
+
+.cartAction {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+}
+
+.action_buy {
+  background: rgba(74, 103, 65, 0.15);
+  color: var(--haven-forest);
+}
+
+.action_wait {
+  background: rgba(196, 163, 90, 0.2);
+  color: #8a6b2a;
+}
+
+.action_skip {
+  background: rgba(196, 92, 74, 0.12);
+  color: #a04030;
+}
+
+.cartInlineAction {
+  padding: 0 0 0.65rem 1.75rem;
+}
+
+.cartAddBtn {
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--haven-forest);
+  border-radius: 6px;
+  background: rgba(74, 103, 65, 0.08);
+  color: var(--haven-forest);
+  cursor: pointer;
+}
+
+.cartAddBtn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cartEnough {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--haven-muted);
+}
+
+.cartStatus {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--haven-forest);
+}
+
+.cartDetail {
+  padding: 0 0 0.65rem 1.75rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.cartDetail p {
+  margin: 0.2rem 0;
+}
+
+.savingsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.savingsCombo {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.savingsTitle {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.savingsSources {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--haven-gold);
+}
+
+.savingsWhy {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.pantryList,
+.supplyList,
+.priceList,
+.receiptList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pantryList li,
+.supplyList li,
+.priceList li {
+  padding: 0.45rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--haven-border);
+}
+
+.expiring {
+  color: #a04030;
+}
+
+.expireBadge {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-size: 0.75rem;
+  background: rgba(196, 92, 74, 0.12);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.goodDeal {
+  color: var(--haven-forest);
+}
+
+.badDeal {
+  color: #a04030;
+}
+
+.priceAction {
+  font-weight: 600;
+}
+
+.seasonalBanner {
+  background: linear-gradient(90deg, rgba(74, 103, 65, 0.08), rgba(196, 163, 90, 0.12));
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.seasonalTitle {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  color: var(--haven-forest);
+}
+
+.seasonalDesc,
+.seasonalSavings {
+  margin: 0.2rem 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.seasonalMore {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.receiptPattern {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.receiptMeta {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.insightLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.insightCard {
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.insightGrid {
+  margin: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.insightGrid dt {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--haven-text-muted);
+  font-weight: 600;
+}
+
+.insightGrid dd {
+  margin: 0 0 0.25rem;
+  font-size: 0.9rem;
+}
+
+.empty {
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.insightsSection {
+  margin: 0.5rem 0 1rem;
+}
+
+.insightsTitle {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--haven-text-muted);
+  margin: 0 0 0.5rem;
+}
+
+.scannerNote {
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+  margin: 0 0 1rem;
+}
+
+.scannerNote button {
+  background: none;
+  border: none;
+  color: var(--haven-forest);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  font: inherit;
+  padding: 0;
+}

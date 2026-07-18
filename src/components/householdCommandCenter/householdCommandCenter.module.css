@@ -1,0 +1,1182 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  animation: hccFadeIn 0.35s ease;
+}
+
+.page > *:nth-child(n + 4) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 200px;
+}
+
+.card {
+  padding: 1.15rem 1.25rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius-lg);
+  min-width: 0;
+  overflow-x: hidden;
+  animation: hccFadeIn 0.4s ease;
+}
+
+.heroCard {
+  composes: card;
+  background: linear-gradient(135deg, rgba(232, 200, 122, 0.18) 0%, rgba(74, 103, 65, 0.1) 100%);
+  padding: 1.5rem 1.25rem;
+}
+
+.greeting {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+}
+
+.sectionLabel {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--haven-sage);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  margin-bottom: 0.75rem;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.chip {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--haven-text);
+}
+
+.chipLink {
+  composes: chip;
+  color: inherit;
+  text-decoration: none;
+}
+
+.chipLink:hover {
+  color: var(--haven-forest);
+}
+
+.chipCaution {
+  color: var(--haven-gold, #c9a227);
+}
+
+.estimate {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+}
+
+.closing {
+  margin: 0;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--haven-sage);
+}
+
+.cardTitle {
+  margin: 0 0 0.65rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.cardTitleLarge {
+  composes: cardTitle;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.listItem {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--haven-text);
+}
+
+.dinnerName {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  margin: 0 0 0.35rem;
+}
+
+.stars {
+  color: var(--haven-gold, #c9a227);
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.ingredientList {
+  composes: list;
+  margin-bottom: 0.65rem;
+  font-size: 0.88rem;
+  color: var(--haven-text-muted);
+}
+
+.ingredientHave {
+  color: var(--haven-text);
+}
+
+.ingredientExpire {
+  color: var(--haven-gold, #c9a227);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.secondaryLink {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.secondaryLink:hover {
+  text-decoration: underline;
+}
+
+.exampleBadge {
+  display: inline-block;
+  margin-left: 0.25rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--haven-text-muted);
+  background: rgba(74, 103, 65, 0.08);
+  border: 1px solid var(--haven-border);
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.75rem;
+}
+
+.progressRing {
+  --score: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--haven-forest) calc(var(--score) * 1%),
+    var(--haven-border) 0
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.progressRing::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--haven-warm-white);
+}
+
+.progressScore {
+  position: relative;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--haven-forest);
+}
+
+.learnedList,
+.learningList {
+  composes: list;
+  margin-bottom: 0.5rem;
+}
+
+.learnedItem {
+  composes: listItem;
+  color: var(--haven-forest);
+}
+
+.learningItem {
+  composes: listItem;
+  color: var(--haven-text-muted);
+}
+
+.estimateTrips {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--haven-text-muted);
+}
+
+.prepGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
+}
+
+.prepCell {
+  padding: 0.55rem 0.65rem;
+  background: rgba(74, 103, 65, 0.06);
+  border-radius: var(--haven-radius);
+  text-align: center;
+}
+
+.prepLabel {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--haven-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.15rem;
+}
+
+.prepValue {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.prepValueCaution {
+  composes: prepValue;
+  color: var(--haven-gold, #c9a227);
+}
+
+.prepValueUrgent {
+  composes: prepValue;
+  color: #c45c5c;
+}
+
+.prepLink {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  color: var(--haven-forest);
+  text-decoration: none;
+}
+
+.prepLink:hover {
+  text-decoration: underline;
+}
+
+.noticedText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--haven-text);
+}
+
+.celebrateTitle {
+  margin: 0 0 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--haven-sage);
+}
+
+.celebrateText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--haven-text);
+}
+
+.helpedIntro {
+  margin: 0 0 0.5rem;
+  font-size: 0.92rem;
+  color: var(--haven-text-muted);
+}
+
+/* Soft beta “Create account” strip — cream / forest, not a hard sell */
+.createAccountCard {
+  composes: card;
+  background: linear-gradient(
+    135deg,
+    rgba(250, 248, 242, 0.98) 0%,
+    rgba(232, 240, 228, 0.75) 55%,
+    rgba(106, 140, 98, 0.12) 100%
+  );
+  border-color: rgba(106, 140, 98, 0.22);
+  padding: 1.1rem 1.2rem;
+}
+
+.createAccountTitle {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  line-height: 1.3;
+}
+
+.createAccountBody {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--haven-text);
+}
+
+.createAccountNote {
+  margin: 0 0 0.85rem;
+  font-size: 0.82rem;
+  color: var(--haven-text-muted);
+  line-height: 1.4;
+}
+
+.createAccountActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.createAccountCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0.4rem 1rem;
+  border-radius: var(--haven-radius);
+  background: var(--haven-forest);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.createAccountCta:hover {
+  background: var(--haven-deep-forest, #243a22);
+}
+
+.createAccountDismiss {
+  border: none;
+  background: none;
+  padding: 0.25rem 0;
+  margin: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--haven-sage);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.createAccountDismiss:hover {
+  color: var(--haven-forest);
+}
+
+.linkRows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--haven-border);
+}
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: var(--haven-warm-white);
+  border: 1px solid var(--haven-border);
+  border-radius: var(--haven-radius);
+  color: var(--haven-forest);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.linkRow:hover {
+  border-color: var(--haven-forest);
+}
+
+.linkArrow {
+  color: var(--haven-sage);
+}
+
+/* ——— Haven Home Banner (emotional signature) ——— */
+
+.welcomeHero {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: clamp(220px, 28vh, 340px);
+  margin: 0 0 0.35rem;
+  background: #1a2a1c;
+  border: none;
+  box-shadow:
+    0 12px 40px rgba(42, 58, 40, 0.18),
+    0 2px 10px rgba(42, 58, 40, 0.08);
+  animation: hccFadeIn 0.55s ease;
+}
+
+.welcomeHeroMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.welcomeHeroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 42%;
+  display: block;
+  transform: scale(1.02);
+  transition: filter 0.8s ease;
+  will-change: auto;
+}
+
+@media (max-width: 768px) {
+  .page {
+    animation: none;
+  }
+}
+
+.welcomeHeroFallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse at 35% 25%, rgba(232, 200, 122, 0.4), transparent 55%),
+    linear-gradient(160deg, #c5d4b8 0%, #8a9a7b 45%, #4a6741 100%);
+}
+
+.welcomeHeroScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(18, 28, 20, 0.72) 0%,
+    rgba(18, 28, 20, 0.45) 38%,
+    rgba(18, 28, 20, 0.18) 62%,
+    rgba(18, 28, 20, 0.05) 100%
+  );
+}
+
+.welcomeHeroNight .welcomeHeroScrim {
+  background: linear-gradient(
+    105deg,
+    rgba(8, 14, 28, 0.78) 0%,
+    rgba(8, 14, 28, 0.5) 40%,
+    rgba(8, 14, 28, 0.2) 100%
+  );
+}
+
+.welcomeHeroEvening .welcomeHeroScrim {
+  background: linear-gradient(
+    105deg,
+    rgba(42, 28, 18, 0.7) 0%,
+    rgba(42, 28, 18, 0.4) 42%,
+    rgba(42, 28, 18, 0.12) 100%
+  );
+}
+
+.welcomeHeroAnim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.55;
+}
+
+.welcomeHeroCopy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  min-height: clamp(220px, 28vh, 340px);
+  padding: 1.5rem 1.4rem 1.55rem;
+  max-width: 34rem;
+}
+
+.welcomeHeroEyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 220, 190, 0.88);
+}
+
+.welcomeHeroGreeting {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.55rem, 4.2vw, 2.05rem);
+  font-weight: 600;
+  line-height: 1.18;
+  color: #faf7f0;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.25);
+}
+
+.welcomeHeroNarrative {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.welcomeHeroCheckIn,
+.welcomeHeroStatus,
+.welcomeHeroAttention,
+.welcomeHeroRest {
+  margin: 0;
+  max-width: 32rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: rgba(250, 247, 240, 0.92);
+}
+
+.welcomeHeroStatus {
+  color: rgba(210, 224, 198, 0.95);
+  font-style: italic;
+}
+
+.welcomeHeroAttention {
+  color: rgba(250, 247, 240, 0.95);
+}
+
+.welcomeHeroRest {
+  color: rgba(232, 220, 190, 0.88);
+  font-style: italic;
+}
+
+.welcomeHeroHealth {
+  list-style: none;
+  margin: 0.55rem 0 0.15rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.85rem;
+}
+
+.welcomeHeroHealthItem {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  color: rgba(250, 247, 240, 0.9);
+}
+
+.welcomeHeroHealthMark {
+  font-size: 0.72rem;
+  opacity: 0.95;
+}
+
+.welcomeHeroHealthOk .welcomeHeroHealthMark {
+  color: #b7d4a8;
+}
+
+.welcomeHeroHealthAttention .welcomeHeroHealthMark {
+  color: #e4c56a;
+}
+
+.welcomeHeroHealthUnknown .welcomeHeroHealthMark {
+  color: rgba(250, 247, 240, 0.45);
+}
+
+.welcomeHeroHealthLabel {
+  font-weight: 600;
+}
+
+.welcomeHeroHealthDetail {
+  opacity: 0.82;
+  font-weight: 400;
+}
+
+.welcomeHeroCta {
+  align-self: flex-start;
+  margin-top: 0.65rem;
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(250, 247, 240, 0.94);
+  color: var(--haven-forest);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.welcomeHeroCta:hover {
+  background: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.welcomeHeroSkeleton {
+  display: inline-block;
+  width: min(16rem, 70%);
+  height: 1.5rem;
+  border-radius: 8px;
+  background: rgba(250, 247, 240, 0.25);
+}
+
+@media (max-width: 640px) {
+  .welcomeHero {
+    border-radius: 24px;
+    min-height: clamp(240px, 32vh, 320px);
+  }
+
+  .welcomeHeroCopy {
+    min-height: clamp(240px, 32vh, 320px);
+    padding: 1.25rem 1.1rem 1.3rem;
+    max-width: 100%;
+  }
+
+  .welcomeHeroHealth {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+
+/* status / game plan / trip / coming-up use .card + section class in JSX */
+
+.statusGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+@media (min-width: 720px) {
+  .statusGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.statusItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: var(--haven-radius);
+  border: 1px solid transparent;
+  background: rgba(74, 103, 65, 0.04);
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+a.statusItem:hover {
+  border-color: rgba(74, 103, 65, 0.25);
+}
+
+.statusDot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  margin-bottom: 0.2rem;
+}
+
+.statusOk {
+  background: var(--haven-forest);
+}
+
+.statusAttention {
+  background: #c9a227;
+}
+
+.statusUnknown {
+  background: rgba(74, 103, 65, 0.25);
+}
+
+.statusLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.statusDetail {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--haven-text-muted);
+}
+
+.gamePlanTrack {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gamePlanLayout {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 780px) {
+  .gamePlanLayout {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+}
+
+.gamePlanSide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.gamePlanCard {
+  flex: 0 0 min(220px, 78vw);
+  scroll-snap-align: start;
+  padding: 0.9rem 1rem;
+  border-radius: var(--haven-radius);
+  background: rgba(74, 103, 65, 0.05);
+  border: 1px solid var(--haven-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.gamePlanSide .gamePlanCard {
+  flex: 1 1 auto;
+}
+
+.gamePlanFeatured {
+  flex: none;
+  padding: 0;
+  overflow: hidden;
+  background: var(--haven-warm-white);
+}
+
+.gamePlanImage,
+.gamePlanImageFallback {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.gamePlanImageFallback {
+  background:
+    radial-gradient(ellipse at 40% 30%, rgba(232, 200, 122, 0.4), transparent 55%),
+    linear-gradient(145deg, #d7e2cb 0%, #7f9470 55%, #4a6741 100%);
+}
+
+.gamePlanFeaturedBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem 1.05rem;
+}
+
+.gamePlanEyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--haven-sage);
+}
+
+.gamePlanKind {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--haven-sage);
+}
+
+.gamePlanTitle {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  line-height: 1.25;
+}
+
+.gamePlanFeatured .gamePlanTitle {
+  font-size: 1.35rem;
+}
+
+.gamePlanNote {
+  margin: 0;
+  flex: 1;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--haven-text-muted);
+}
+
+.gamePlanAction {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  text-decoration: none;
+}
+
+.gamePlanFeatured .gamePlanAction {
+  margin-top: 0.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  background: var(--haven-forest);
+  color: #fff;
+}
+
+.gamePlanFeatured .gamePlanAction:hover {
+  background: #3d5636;
+  text-decoration: none;
+}
+
+.gamePlanAction:hover {
+  text-decoration: underline;
+}
+
+.gamePlanActionDisabled {
+  align-self: flex-start;
+  margin-top: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  opacity: 0.5;
+}
+
+.snapshotGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+@media (min-width: 720px) {
+  .snapshotGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.winsGrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+@media (min-width: 720px) {
+  .winsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.winItem,
+.savingsStat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.8rem;
+  border-radius: var(--haven-radius);
+  background: rgba(74, 103, 65, 0.05);
+  border: 1px solid transparent;
+}
+
+.winValue {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  line-height: 1.2;
+}
+
+.winLabel {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--haven-text-muted);
+}
+
+.opportunitiesLead {
+  margin: 0 0 0.75rem;
+  font-size: 0.9rem;
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.opportunityList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.opportunityItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: var(--haven-radius);
+  background: rgba(74, 103, 65, 0.04);
+}
+
+.opportunityCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.opportunityTitle {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.opportunityDetail {
+  font-size: 0.8rem;
+  color: var(--haven-text-muted);
+}
+
+.opportunityAction {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.opportunityAction:hover {
+  text-decoration: underline;
+}
+
+.opportunityActionDisabled {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.savingsStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.savingsStat {
+  flex: 1 1 8rem;
+}
+
+.savingsGoal {
+  margin-bottom: 0.65rem;
+}
+
+.savingsGoalHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.savingsGoalTrack {
+  height: 0.55rem;
+  border-radius: 999px;
+  background: rgba(74, 103, 65, 0.12);
+  overflow: hidden;
+}
+
+.savingsGoalFill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--haven-sage), var(--haven-forest));
+}
+
+.emptyVoice {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--haven-text-muted);
+  font-style: italic;
+}
+
+.nextTripHeadline {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+}
+
+.nextTripStore {
+  margin: 0 0 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--haven-forest);
+}
+
+.nextTripMeta,
+.nextTripItems {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--haven-text-muted);
+}
+
+.comingUpList {
+  list-style: none;
+  margin: 0 0 0.85rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.comingUpLink {
+  color: var(--haven-forest);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.comingUpLink:hover {
+  text-decoration: underline;
+}
+
+.focusActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.focusPill,
+.focusPillGhost {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid var(--haven-border);
+  background: transparent;
+  color: var(--haven-forest);
+  font-family: inherit;
+}
+
+.focusPill {
+  background: rgba(74, 103, 65, 0.1);
+  border-color: transparent;
+}
+
+.focusPill:hover,
+.focusPillGhost:hover {
+  border-color: var(--haven-forest);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--haven-border) 25%, rgba(255,255,255,0.5) 50%, var(--haven-border) 75%);
+  background-size: 200% 100%;
+  animation: hccShimmer 1.2s infinite;
+  border-radius: var(--haven-radius);
+  height: 0.85rem;
+  margin-bottom: 0.45rem;
+}
+
+.skeletonGreeting {
+  composes: skeleton;
+  height: 1.75rem;
+  width: 65%;
+}
+
+@keyframes hccFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hccShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 480px) {
+  .greeting {
+    font-size: 1.35rem;
+  }
+
+  .heroCard {
+    padding: 1.25rem 1rem;
+  }
+
+  .prepGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .card,
+  .heroCard,
+  .welcomeHeroImage,
+  .welcomeHeroCta {
+    animation: none;
+    transition: none;
+    transform: none;
+  }
+
+  .welcomeHeroAnim {
+    display: none;
+  }
+}

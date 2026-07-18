@@ -1,0 +1,343 @@
+.screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    url('/assets/welcome/auth-bg.webp') center / cover no-repeat,
+    linear-gradient(180deg, #f3ebe0 0%, #e8f0e2 100%);
+  transform: scale(1.02);
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 247, 240, 0.55) 0%,
+    rgba(250, 247, 240, 0.78) 42%,
+    rgba(250, 247, 240, 0.92) 100%
+  );
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  width: min(440px, 100%);
+  margin: 0 auto;
+  padding: 2rem 1.35rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: authFade 0.55s ease;
+}
+
+@keyframes authFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 8px 28px rgba(74, 103, 65, 0.18);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--haven-forest);
+}
+
+.tagline {
+  margin: 0.35rem 0 1.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--haven-earth);
+}
+
+.greeting {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 5vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--haven-forest);
+}
+
+.mission,
+.missionSub {
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--haven-text);
+}
+
+.missionSub {
+  margin-top: 0.35rem;
+  margin-bottom: 1.4rem;
+  color: var(--haven-text-muted);
+}
+
+.actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.btnApple,
+.btnOutline {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 3rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btnApple:disabled,
+.btnOutline:disabled,
+.createLink:disabled,
+.skipLink:disabled,
+.textSwitch:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.btnApple {
+  border: none;
+  background: var(--haven-forest);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(74, 103, 65, 0.22);
+}
+
+.btnApple:hover:not(:disabled) {
+  background: #3d5636;
+  transform: translateY(-1px);
+}
+
+.btnOutline {
+  border: 1px solid rgba(74, 103, 65, 0.22);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--haven-forest);
+}
+
+.btnOutline:hover:not(:disabled) {
+  border-color: rgba(74, 103, 65, 0.4);
+  background: #fff;
+}
+
+.btnIcon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+}
+
+.emailForm {
+  width: 100%;
+  margin-top: 0.85rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(74, 103, 65, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  text-align: left;
+  animation: authFade 0.35s ease;
+}
+
+.emailLead {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--haven-text-muted);
+  text-align: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.fieldLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--haven-sage);
+}
+
+.input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid rgba(74, 103, 65, 0.2);
+  background: #fff;
+  font-size: 0.95rem;
+  color: var(--haven-text);
+}
+
+.input:focus {
+  outline: 2px solid rgba(74, 103, 65, 0.35);
+  outline-offset: 1px;
+}
+
+.textSwitch {
+  border: none;
+  background: none;
+  color: var(--haven-forest);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.message,
+.error {
+  margin: 0.85rem 0 0;
+  max-width: 24rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.message {
+  color: var(--haven-forest);
+}
+
+.error {
+  color: #8a5a3a;
+}
+
+.orRow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.15rem 0 0.85rem;
+}
+
+.orLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(74, 103, 65, 0.18);
+}
+
+.orText {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--haven-text-muted);
+}
+
+.createLink,
+.skipLink {
+  border: none;
+  background: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--haven-forest);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.createLink:hover:not(:disabled),
+.skipLink:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.skipLink {
+  margin-top: 0.55rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--haven-text-muted);
+}
+
+.valueRow {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0.95rem 0.75rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem 0.65rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(74, 103, 65, 0.1);
+}
+
+.valueRow li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--haven-forest);
+  font-weight: 500;
+}
+
+.valueIcon {
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(74, 103, 65, 0.08);
+  font-size: 0.85rem;
+}
+
+.trustRow {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.55rem 1rem;
+  font-size: 0.72rem;
+  color: var(--haven-text-muted);
+}
+
+.disclaimer {
+  margin: 0.65rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--haven-text-muted);
+}
+
+@media (min-width: 520px) {
+  .valueRow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
